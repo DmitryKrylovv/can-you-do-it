@@ -184,8 +184,8 @@ const ProductsMenu = ({ isOpen, onOpenChange }: ProductsMenuProps) => {
         className={cn(
           "flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all",
           isOpen 
-            ? "bg-primary text-primary-foreground" 
-            : "bg-muted hover:bg-muted/80 text-foreground"
+            ? "bg-blue-600 text-primary-foreground" 
+            : "bg-blue-500 hover:bg-blue-600 text-primary-foreground"
         )}
       >
         <LayoutGrid className="w-4 h-4" />
