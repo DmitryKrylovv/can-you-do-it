@@ -18,6 +18,7 @@ const datacenterLogos = [
   { name: 'Миран', abbr: 'MR', color: 'bg-rose-600' },
   { name: 'Hetzner', abbr: 'HZ', color: 'bg-red-600' },
   { name: 'Equinix', abbr: 'EQ', color: 'bg-indigo-600' },
+  { name: 'Tech.ru', abbr: 'TR', color: 'bg-sky-600' },
 ];
 
 const ColocationPage = () => {
@@ -146,8 +147,8 @@ const ColocationPage = () => {
         {/* Datacenter Logos */}
         <section className="border-y border-border bg-muted/30">
           <div className="container py-6">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="text-sm text-muted-foreground">Работаем с ведущими дата-центрами:</span>
+          <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="text-sm text-muted-foreground">Дата-центры, подключённые к Plooza:</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
               {datacenterLogos.map((dc) => (
