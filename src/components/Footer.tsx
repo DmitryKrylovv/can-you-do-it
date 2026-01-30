@@ -67,7 +67,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="pt-6 sm:pt-8 border-t border-background/10 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
           <p className="text-xs sm:text-sm text-background/60">
-            © 2024 Plooza. Все права защищены.
+            © 2026 Plooza. Все права защищены.
           </p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-background/60">
             <a href="#" className="hover:text-background transition-colors">
