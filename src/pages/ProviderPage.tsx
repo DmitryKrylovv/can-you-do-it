@@ -348,90 +348,90 @@ const ProviderPage = () => {
 
                 {/* Review Summary */}
                 <div className="lg:w-80">
-                  <div className="bg-muted/50 rounded-2xl p-5 sticky top-32">
-                    <h3 className="font-semibold text-foreground mb-4">Рейтинг отзывов</h3>
-                    
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="text-4xl font-bold text-foreground">{providerData.rating}</div>
-                      <div>
-                        <div className="flex">{renderStars(providerData.rating)}</div>
-                        <div className="text-sm text-muted-foreground">{providerData.reviewsCount} отзывов</div>
+                  <div className="sticky top-32 space-y-4">
+                    {/* Rating Block */}
+                    <div className="bg-muted/50 rounded-2xl p-5">
+                      <h3 className="font-semibold text-foreground mb-4">Рейтинг отзывов</h3>
+                      
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="text-4xl font-bold text-foreground">{providerData.rating}</div>
+                        <div>
+                          <div className="flex">{renderStars(providerData.rating)}</div>
+                          <div className="text-sm text-muted-foreground">{providerData.reviewsCount} отзывов</div>
+                        </div>
                       </div>
-                    </div>
-                    
-                    {/* Rating bars */}
-                    <div className="space-y-2 mb-5">
-                      {[5, 4, 3, 2, 1].map((stars) => {
-                        const percentage = stars === 5 ? 75 : stars === 4 ? 18 : stars === 3 ? 5 : 2;
-                        return (
-                          <div key={stars} className="flex items-center gap-2">
-                            <span className="text-sm text-muted-foreground w-3">{stars}</span>
-                            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                            <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-                              <div
-                                className="h-full bg-yellow-400 rounded-full"
-                                style={{ width: `${percentage}%` }}
-                              />
+                      
+                      {/* Rating bars */}
+                      <div className="space-y-2 mb-5">
+                        {[5, 4, 3, 2, 1].map((stars) => {
+                          const percentage = stars === 5 ? 75 : stars === 4 ? 18 : stars === 3 ? 5 : 2;
+                          return (
+                            <div key={stars} className="flex items-center gap-2">
+                              <span className="text-sm text-muted-foreground w-3">{stars}</span>
+                              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                              <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-yellow-400 rounded-full"
+                                  style={{ width: `${percentage}%` }}
+                                />
+                              </div>
+                              <span className="text-sm text-muted-foreground w-8">{percentage}%</span>
                             </div>
-                            <span className="text-sm text-muted-foreground w-8">{percentage}%</span>
+                          );
+                        })}
+                      </div>
+                      
+                      <Button className="w-full bg-primary hover:bg-primary/90">
+                        Написать отзыв
+                      </Button>
+                    </div>
+
+                    {/* AI Summary */}
+                    <div className="bg-muted/50 rounded-2xl p-5 border border-border">
+                      <div className="flex items-center gap-2.5 mb-4">
+                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <Sparkles className="w-4 h-4 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-foreground text-sm">AI-суммаризатор</h3>
+                          <span className="text-xs text-muted-foreground">на основе {providerData.reviewsCount} отзывов</span>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2.5 text-sm">
+                        <div className="flex items-start gap-2">
+                          <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
                           </div>
-                        );
-                      })}
-                    </div>
-                    
-                    <Button className="w-full bg-primary hover:bg-primary/90">
-                      Написать отзыв
-                    </Button>
-                  </div>
+                          <p className="text-muted-foreground leading-snug">
+                            <span className="font-medium text-foreground">Стабильная работа:</span> высокий uptime и быстрая загрузка
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start gap-2">
+                          <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
+                          </div>
+                          <p className="text-muted-foreground leading-snug">
+                            <span className="font-medium text-foreground">Быстрая поддержка:</span> ответ за 15 минут
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start gap-2">
+                          <div className="w-5 h-5 rounded-full bg-yellow-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-yellow-600 dark:text-yellow-400 text-xs font-medium">!</span>
+                          </div>
+                          <p className="text-muted-foreground leading-snug">
+                            <span className="font-medium text-foreground">Нюанс:</span> задержки в выходные
+                          </p>
+                        </div>
+                      </div>
 
-                  {/* AI Summary */}
-                  <div className="bg-gradient-to-br from-primary/5 via-blue-50/50 to-purple-50/30 dark:from-primary/10 dark:via-blue-900/20 dark:to-purple-900/10 rounded-2xl p-5 border border-primary/20 mt-4">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-primary to-purple-500 rounded-lg flex items-center justify-center">
-                        <Sparkles className="w-4 h-4 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground text-sm">AI-суммаризатор</h3>
-                        <span className="text-xs text-muted-foreground">на основе {providerData.reviewsCount} отзывов</span>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-start gap-2">
-                        <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-green-600" />
+                      <div className="mt-4 pt-3 border-t border-border">
+                        <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+                          <Sparkles className="w-3 h-3" />
+                          <span>Plooza AI</span>
                         </div>
-                        <p className="text-muted-foreground">
-                          <span className="font-medium text-foreground">Стабильная работа:</span> Пользователи отмечают высокий uptime и быструю загрузку сайтов
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-start gap-2">
-                        <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-green-600" />
-                        </div>
-                        <p className="text-muted-foreground">
-                          <span className="font-medium text-foreground">Быстрая поддержка:</span> Среднее время ответа 15 минут, компетентные специалисты
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-start gap-2">
-                        <div className="w-5 h-5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-yellow-600 text-xs">!</span>
-                        </div>
-                        <p className="text-muted-foreground">
-                          <span className="font-medium text-foreground">Нюанс:</span> Некоторые клиенты отмечают задержки в ответах в выходные дни
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-primary/10">
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>Проанализировано AI</span>
-                        <span className="flex items-center gap-1">
-                          <Sparkles className="w-3 h-3 text-primary" />
-                          Powered by Plooza AI
-                        </span>
                       </div>
                     </div>
                   </div>
