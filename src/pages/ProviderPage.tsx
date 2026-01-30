@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Star, Shield, Clock, Users, ExternalLink, ChevronRight, ThumbsUp, ThumbsDown, MessageSquare, Check, X, Globe, Server, Zap, HeadphonesIcon } from 'lucide-react';
+import { Star, Shield, Clock, Users, ExternalLink, ChevronRight, ThumbsUp, ThumbsDown, MessageSquare, Check, X, Globe, Server, Zap, HeadphonesIcon, Award, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
@@ -17,6 +17,7 @@ const providerData = {
   ordersViaPlooza: 3456,
   founded: 2006,
   website: 'timeweb.com',
+  isPartner: true, // Партнёр Plooza - можно заказать напрямую
   features: [
     { icon: Shield, label: 'SSL бесплатно' },
     { icon: Clock, label: 'Uptime 99.98%' },
@@ -153,8 +154,14 @@ const ProviderPage = () => {
                 
                 {/* Details */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
                     <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{providerData.name}</h1>
+                    {providerData.isPartner && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-semibold rounded-full shadow-sm">
+                        <Award className="w-3.5 h-3.5" />
+                        Партнёр Plooza
+                      </span>
+                    )}
                     <span className="hidden sm:inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
                       <Check className="w-3 h-3" />
                       Проверен
@@ -206,13 +213,28 @@ const ProviderPage = () => {
                 </div>
               </div>
               
-              <div className="mt-5 pt-5 border-t border-border">
-                <Button className="w-full bg-primary hover:bg-primary/90 h-11" asChild>
-                  <a href={`https://${providerData.website}`} target="_blank" rel="noopener noreferrer">
-                    <Globe className="w-4 h-4 mr-2" />
-                    Перейти на сайт
-                  </a>
-                </Button>
+              <div className="mt-5 pt-5 border-t border-border space-y-3">
+                {providerData.isPartner ? (
+                  <Button className="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 h-11 shadow-md">
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    Заказать на Plooza
+                  </Button>
+                ) : (
+                  <Button className="w-full bg-primary hover:bg-primary/90 h-11" asChild>
+                    <a href={`https://${providerData.website}`} target="_blank" rel="noopener noreferrer">
+                      <Globe className="w-4 h-4 mr-2" />
+                      Перейти на сайт
+                    </a>
+                  </Button>
+                )}
+                {providerData.isPartner && (
+                  <Button variant="outline" className="w-full h-10" asChild>
+                    <a href={`https://${providerData.website}`} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Сайт провайдера
+                    </a>
+                  </Button>
+                )}
               </div>
             </div>
           </div>
