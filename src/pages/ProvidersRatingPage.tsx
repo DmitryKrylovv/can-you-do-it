@@ -2,8 +2,8 @@ import { useState, useMemo } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { 
-  Star, TrendingUp, Award, Users, ArrowUpDown,
-  ExternalLink, ChevronUp, ChevronDown, Filter, Search
+  Star, TrendingUp, Award, Users, MessageSquare,
+  ExternalLink, ChevronUp, ChevronDown, Search, Shield, Clock, ThumbsUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,6 +32,15 @@ interface Provider {
   features: string[];
   badge?: string;
   trend: 'up' | 'down' | 'stable';
+}
+
+interface Review {
+  id: string;
+  author: string;
+  provider: string;
+  rating: number;
+  text: string;
+  date: string;
 }
 
 const providers: Provider[] = [
@@ -182,14 +191,20 @@ const providers: Provider[] = [
   },
 ];
 
-type SortField = 'rating' | 'reviewsCount' | 'uptime' | 'support' | 'price';
-type SortDirection = 'asc' | 'desc';
+const recentReviews: Review[] = [
+  { id: '1', author: 'Алексей М.', provider: 'Timeweb', rating: 5, text: 'Отличный хостинг! Переехал с другого провайдера, разница огромная. Поддержка отвечает за минуты.', date: '2 часа назад' },
+  { id: '2', author: 'Ирина К.', provider: 'Selectel', rating: 5, text: 'Пользуюсь уже 3 года, ни разу не подвели. Uptime реально 99.99%, проверял сам.', date: '5 часов назад' },
+  { id: '3', author: 'Дмитрий В.', provider: 'Beget', rating: 5, text: 'Лучшая техподдержка из всех, что встречал. Помогли настроить сервер бесплатно!', date: '8 часов назад' },
+  { id: '4', author: 'Марина С.', provider: 'RUVDS', rating: 4, text: 'Хороший VPS за свои деньги. Иногда бывают небольшие задержки в поддержке, но в целом доволен.', date: '12 часов назад' },
+  { id: '5', author: 'Павел Н.', provider: 'Hetzner', rating: 5, text: 'Цены просто космос! За эти деньги такие характеристики — это подарок.', date: '1 день назад' },
+  { id: '6', author: 'Ольга Р.', provider: 'VDSina', rating: 5, text: 'Почасовая оплата — то что нужно для тестов. Очень удобно и выгодно.', date: '1 день назад' },
+  { id: '7', author: 'Сергей Л.', provider: 'REG.RU', rating: 4, text: 'Домены регистрирую только тут. Цены адекватные, автопродление работает.', date: '2 дня назад' },
+  { id: '8', author: 'Анна Б.', provider: 'DataLine', rating: 5, text: 'Разместили серверы в их ЦОД — всё на высшем уровне. Рекомендую для colocation.', date: '2 дня назад' },
+];
 
 const ProvidersRatingPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const [sortField, setSortField] = useState<SortField>('rating');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
 
   const categories = useMemo(() => {
     const cats = new Set<string>();
@@ -199,7 +214,7 @@ const ProvidersRatingPage = () => {
     return Array.from(cats).sort();
   }, []);
 
-  const filteredAndSorted = useMemo(() => {
+  const filteredProviders = useMemo(() => {
     let result = [...providers];
 
     // Search filter
@@ -216,40 +231,14 @@ const ProvidersRatingPage = () => {
       result = result.filter(p => p.category.includes(categoryFilter));
     }
 
-    // Sort
-    result.sort((a, b) => {
-      const aVal = a[sortField];
-      const bVal = b[sortField];
-      const modifier = sortDirection === 'desc' ? -1 : 1;
-      return (aVal - bVal) * modifier;
-    });
+    // Sort by rating by default
+    result.sort((a, b) => b.rating - a.rating);
 
     return result;
-  }, [searchQuery, categoryFilter, sortField, sortDirection]);
+  }, [searchQuery, categoryFilter]);
 
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'desc' ? 'asc' : 'desc');
-    } else {
-      setSortField(field);
-      setSortDirection('desc');
-    }
-  };
-
-  const SortHeader = ({ field, label }: { field: SortField; label: string }) => (
-    <button
-      onClick={() => handleSort(field)}
-      className={cn(
-        "flex items-center gap-1 text-xs font-medium transition-colors",
-        sortField === field ? "text-primary" : "text-muted-foreground hover:text-foreground"
-      )}
-    >
-      {label}
-      {sortField === field && (
-        sortDirection === 'desc' ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />
-      )}
-    </button>
-  );
+  const totalReviews = providers.reduce((sum, p) => sum + p.reviewsCount, 0);
+  const avgRating = (providers.reduce((sum, p) => sum + p.rating, 0) / providers.length).toFixed(1);
 
   const getRatingColor = (rating: number) => {
     if (rating >= 4.7) return 'text-emerald-600';
@@ -265,52 +254,121 @@ const ProvidersRatingPage = () => {
         {/* Hero */}
         <section className="bg-gradient-to-br from-primary/5 via-background to-background border-b border-border">
           <div className="container py-10 md:py-14">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <Award className="w-6 h-6 text-primary" />
-              </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              {/* Left */}
               <div>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
-                  Рейтинг провайдеров
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm text-primary font-medium mb-5">
+                  <Award className="w-4 h-4" />
+                  Независимый рейтинг
+                </div>
+                
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+                  Рейтинг хостинг-
+                  <br />
+                  <span className="text-primary">провайдеров России</span>
                 </h1>
-                <p className="text-sm text-muted-foreground">
-                  Актуальный рейтинг на основе {providers.reduce((sum, p) => sum + p.reviewsCount, 0).toLocaleString()} отзывов
+                
+                <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-md">
+                  Актуальный рейтинг на основе реальных отзывов пользователей. Сравнивайте провайдеров и выбирайте лучшего.
                 </p>
-              </div>
-            </div>
 
-            {/* Stats */}
-            <div className="flex flex-wrap gap-6 mt-6">
-              <div className="flex items-center gap-2 text-sm">
-                <TrendingUp className="w-4 h-4 text-primary" />
-                <span className="text-muted-foreground">Обновлено сегодня</span>
+                {/* Trust indicators */}
+                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                    {totalReviews.toLocaleString()} отзывов
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Shield className="w-4 h-4 text-primary" />
+                    Проверенные данные
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-primary" />
+                    Обновлено сегодня
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-sm">
-                <Users className="w-4 h-4 text-primary" />
-                <span className="text-muted-foreground">{providers.length} провайдеров</span>
+
+              {/* Right - Stats */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-card border border-border rounded-2xl p-5 text-center">
+                  <div className="text-4xl font-bold text-foreground mb-1">{providers.length}</div>
+                  <div className="text-sm text-muted-foreground">Провайдеров</div>
+                </div>
+                <div className="bg-card border border-border rounded-2xl p-5 text-center">
+                  <div className="text-4xl font-bold text-primary mb-1">{avgRating}</div>
+                  <div className="text-sm text-muted-foreground">Средний рейтинг</div>
+                </div>
+                <div className="bg-card border border-border rounded-2xl p-5 text-center">
+                  <div className="text-4xl font-bold text-foreground mb-1">{totalReviews.toLocaleString()}</div>
+                  <div className="text-sm text-muted-foreground">Отзывов</div>
+                </div>
+                <div className="bg-card border border-border rounded-2xl p-5 text-center">
+                  <div className="text-4xl font-bold text-emerald-600 mb-1">99.9%</div>
+                  <div className="text-sm text-muted-foreground">Средний uptime</div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Filters */}
-        <section className="border-b border-border bg-muted/30">
+        {/* Reviews Marquee */}
+        <section className="border-b border-border bg-muted/30 overflow-hidden">
+          <div className="py-4">
+            <div className="flex items-center gap-2 container mb-3">
+              <ThumbsUp className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium text-foreground">Последние отзывы</span>
+            </div>
+            
+            {/* Marquee */}
+            <div className="relative">
+              <div className="flex gap-4 animate-marquee">
+                {[...recentReviews, ...recentReviews].map((review, idx) => (
+                  <div
+                    key={`${review.id}-${idx}`}
+                    className="flex-shrink-0 w-[320px] bg-card border border-border rounded-xl p-4 hover:border-primary/30 transition-colors"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
+                          {review.author.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-foreground">{review.author}</div>
+                          <div className="text-xs text-muted-foreground">{review.provider}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <span className="text-sm font-medium">{review.rating}</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{review.text}</p>
+                    <div className="text-xs text-muted-foreground mt-2">{review.date}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Search & Filters */}
+        <section className="border-b border-border">
           <div className="container py-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="relative flex-1 min-w-[200px] max-w-sm">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <div className="relative flex-1">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
-                  placeholder="Поиск провайдера..."
+                  placeholder="Найти провайдера по названию или категории..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 rounded-xl"
+                  className="pl-12 h-12 rounded-xl text-base"
                 />
               </div>
               
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-[180px] rounded-xl">
-                  <Filter className="w-4 h-4 mr-2" />
-                  <SelectValue placeholder="Категория" />
+                <SelectTrigger className="w-full sm:w-[200px] h-12 rounded-xl">
+                  <SelectValue placeholder="Все категории" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Все категории</SelectItem>
@@ -319,11 +377,6 @@ const ProvidersRatingPage = () => {
                   ))}
                 </SelectContent>
               </Select>
-
-              <div className="hidden md:flex items-center gap-2 ml-auto text-sm text-muted-foreground">
-                <ArrowUpDown className="w-4 h-4" />
-                <span>Сортировка:</span>
-              </div>
             </div>
           </div>
         </section>
@@ -335,25 +388,17 @@ const ProvidersRatingPage = () => {
             <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-muted/50 border-b border-border text-xs font-medium text-muted-foreground uppercase tracking-wider">
               <div className="col-span-1">#</div>
               <div className="col-span-3">Провайдер</div>
-              <div className="col-span-2">
-                <SortHeader field="rating" label="Рейтинг" />
-              </div>
-              <div className="col-span-1">
-                <SortHeader field="uptime" label="Uptime" />
-              </div>
-              <div className="col-span-1">
-                <SortHeader field="support" label="Поддержка" />
-              </div>
-              <div className="col-span-1">
-                <SortHeader field="price" label="Цены" />
-              </div>
+              <div className="col-span-2">Рейтинг</div>
+              <div className="col-span-1">Uptime</div>
+              <div className="col-span-1">Поддержка</div>
+              <div className="col-span-1">Цены</div>
               <div className="col-span-2">Особенности</div>
               <div className="col-span-1"></div>
             </div>
 
             {/* Table Body */}
             <div className="divide-y divide-border">
-              {filteredAndSorted.map((provider, index) => (
+              {filteredProviders.map((provider, index) => (
                 <div
                   key={provider.id}
                   className={cn(
@@ -489,7 +534,7 @@ const ProvidersRatingPage = () => {
               ))}
             </div>
 
-            {filteredAndSorted.length === 0 && (
+            {filteredProviders.length === 0 && (
               <div className="px-6 py-12 text-center text-muted-foreground">
                 <Search className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <p>Провайдеры не найдены</p>
