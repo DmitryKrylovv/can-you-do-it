@@ -91,7 +91,7 @@ const ForProvidersPage = () => {
             >
               <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
               <span className="text-background/60 text-sm font-medium uppercase tracking-widest">
-                Партнёрская программа
+                Для хостинг-провайдеров
               </span>
             </motion.div>
 
@@ -222,7 +222,7 @@ const ForProvidersPage = () => {
           >
             {[
               { icon: Users, value: '15K+', label: 'активных пользователей', desc: 'ищут хостинг ежемесячно' },
-              { icon: TrendingUp, value: '+40%', label: 'рост продаж', desc: 'средний показатель партнёров' },
+              { icon: TrendingUp, value: '+40%', label: 'рост продаж', desc: 'средний показатель провайдеров' },
               { icon: BarChart3, value: '24/7', label: 'аналитика', desc: 'отслеживайте конверсии' },
               { icon: CheckCircle2, value: '0₽', label: 'за подключение', desc: 'платите только за результат' },
             ].map((stat, i) => (
@@ -416,7 +416,7 @@ const ForProvidersPage = () => {
               ГОТОВЫ <span className="text-primary">НАЧАТЬ?</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-xl mx-auto mb-10">
-              Присоединяйтесь к партнёрам Plooza и увеличьте свои продажи
+              Присоединяйтесь к провайдерам на Plooza и увеличьте свои продажи
             </p>
             <Button 
               size="lg"
@@ -433,7 +433,7 @@ const ForProvidersPage = () => {
       {/* Footer */}
       <footer className="bg-foreground text-background/40 py-8">
         <div className="container px-6 text-center">
-          <p>© 2024 Plooza. Партнёрская программа для хостинг-провайдеров.</p>
+          <p>© 2024 Plooza. Платформа для хостинг-провайдеров.</p>
         </div>
       </footer>
     </div>
