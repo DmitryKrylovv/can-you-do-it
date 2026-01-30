@@ -84,17 +84,17 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
   if (!isOpen) return null;
 
   return (
-    <>
-      {/* Overlay */}
+    <div className="fixed inset-0 z-50">
+      {/* Overlay - clickable background */}
       <div 
-        className="fixed inset-0 bg-black/40 z-40 animate-in fade-in-0 duration-150"
+        className="absolute inset-0 bg-black/40 animate-in fade-in-0 duration-150"
         onClick={() => onOpenChange(false)}
       />
 
       {/* Search Dropdown - появляется под хедером */}
-      <div className="fixed left-0 right-0 top-[105px] z-50 px-4 animate-in fade-in-0 slide-in-from-top-2 duration-200">
+      <div className="absolute left-0 right-0 top-[105px] px-4 animate-in fade-in-0 slide-in-from-top-2 duration-200">
         <div className="container max-w-3xl mx-auto">
-          <div className="bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">
+          <div className="bg-card border border-border rounded-2xl shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
             {/* Search Input */}
             <div className="p-4 bg-muted/30">
               <div className="relative">
@@ -244,7 +244,7 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
