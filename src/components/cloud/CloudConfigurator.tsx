@@ -60,14 +60,14 @@ const CloudConfigurator = ({
           <Label className="text-sm font-medium">Локация</Label>
         </div>
         <Select
-          value={config.location || ''}
-          onValueChange={(value) => updateConfig({ location: value || null })}
+          value={config.location || 'any'}
+          onValueChange={(value) => updateConfig({ location: value === 'any' ? null : value })}
         >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Любая локация" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Любая локация</SelectItem>
+            <SelectItem value="any">Любая локация</SelectItem>
             {locations.map((location) => (
               <SelectItem key={location} value={location}>
                 {location}
@@ -84,14 +84,14 @@ const CloudConfigurator = ({
           <Label className="text-sm font-medium">Операционная система</Label>
         </div>
         <Select
-          value={config.os || ''}
-          onValueChange={(value) => updateConfig({ os: value || null })}
+          value={config.os || 'any'}
+          onValueChange={(value) => updateConfig({ os: value === 'any' ? null : value })}
         >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Любая ОС" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Любая ОС</SelectItem>
+            <SelectItem value="any">Любая ОС</SelectItem>
             {operatingSystems.map((os) => (
               <SelectItem key={os} value={os}>
                 {os}
