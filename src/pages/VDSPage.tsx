@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import VDSFilters from '@/components/vds/VDSFilters';
 import VDSTariffCard from '@/components/vds/VDSTariffCard';
 import VDSProviderBar from '@/components/vds/VDSProviderBar';
+import VDSLocationBar from '@/components/vds/VDSLocationBar';
 import { 
   ArrowRight, CreditCard, BarChart3, Settings, 
   Check, Zap, Shield, Clock, SlidersHorizontal,
@@ -66,6 +67,28 @@ const VDSPage = () => {
   }, []);
 
   const locations = useMemo(() => [...new Set(allTariffs.map(t => t.location))], []);
+  
+  const locationFlags: Record<string, { country: string; flag: string }> = {
+    'Москва': { country: 'Россия', flag: '🇷🇺' },
+    'СПб': { country: 'Россия', flag: '🇷🇺' },
+    'Казань': { country: 'Россия', flag: '🇷🇺' },
+    'Амстердам': { country: 'Нидерланды', flag: '🇳🇱' },
+    'Франкфурт': { country: 'Германия', flag: '🇩🇪' },
+  };
+
+  const locationsWithFlags = useMemo(() => {
+    const counts = allTariffs.reduce((acc, t) => {
+      acc[t.location] = (acc[t.location] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    return locations.map(loc => ({
+      name: loc,
+      country: locationFlags[loc]?.country || '',
+      flag: locationFlags[loc]?.flag || '🌍',
+      count: counts[loc] || 0,
+    }));
+  }, [locations]);
   const ramOptions = useMemo(() => [...new Set(allTariffs.map(t => t.ram))].sort((a, b) => a - b), []);
   const maxPrice = useMemo(() => Math.max(...allTariffs.map(t => t.price)), []);
 
@@ -238,11 +261,26 @@ const VDSPage = () => {
         {/* Tariffs Section */}
         <section className="container py-8 md:py-12">
           {/* Provider Quick Filter */}
-          <div className="mb-6">
+          <div className="mb-4">
             <VDSProviderBar 
               providers={providers}
               activeProvider={activeProvider}
               onProviderClick={setActiveProvider}
+            />
+          </div>
+
+          {/* Location Quick Filter */}
+          <div className="mb-6">
+            <VDSLocationBar
+              locations={locationsWithFlags}
+              selectedLocations={selectedLocations}
+              onLocationClick={(loc) => {
+                if (selectedLocations.includes(loc)) {
+                  setSelectedLocations(selectedLocations.filter(l => l !== loc));
+                } else {
+                  setSelectedLocations([...selectedLocations, loc]);
+                }
+              }}
             />
           </div>
 
