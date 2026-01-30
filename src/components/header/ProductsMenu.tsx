@@ -205,10 +205,10 @@ const ProductsMenu = ({ isOpen, onOpenChange }: ProductsMenuProps) => {
           />
           
           {/* Menu */}
-          <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden min-w-[800px] animate-in fade-in-0 zoom-in-95 duration-200">
+          <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden min-w-[900px] animate-in fade-in-0 zoom-in-95 duration-200">
             <div className="flex">
               {/* Categories sidebar */}
-              <div className="w-64 bg-muted/50 p-3 border-r border-border">
+              <div className="w-72 bg-muted/50 p-3 border-r border-border">
                 {productCategories.map((category) => {
                   const Icon = category.icon;
                   return (
