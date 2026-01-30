@@ -4,7 +4,8 @@ import {
   ArrowRight, ArrowDown, Users, TrendingUp, 
   BarChart3, Headphones, Globe, CheckCircle2, 
   Rocket, Server, Database, Cloud, HardDrive,
-  Lock, Zap, Mail, MessageSquare, Home
+  Lock, Zap, Mail, MessageSquare, Home,
+  FileText, Phone, Settings, Play
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -179,28 +180,76 @@ const ForProvidersPage = () => {
       </section>
 
       {/* How it works */}
-      <section className="bg-muted/50 py-24 md:py-32">
-        <div className="container px-6">
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-16 text-center">
+      <section className="relative bg-foreground text-background py-24 md:py-32 overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-primary/20 rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/10 rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-primary/5 rounded-full" />
+        </div>
+        
+        <div className="container px-6 relative z-10">
+          <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">
             Как <span className="text-primary">подключиться</span>
           </h2>
           
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { num: '01', title: 'Заявка', desc: 'Заполните форму' },
-              { num: '02', title: 'Созвон', desc: 'Обсудим условия' },
-              { num: '03', title: 'Интеграция', desc: 'Настроим API' },
-              { num: '04', title: 'Запуск', desc: 'Получайте заказы' },
-            ].map((step, i) => (
-              <div key={step.num} className="text-center relative">
-                <div className="text-7xl font-bold text-primary/20 mb-4">{step.num}</div>
-                <div className="text-xl font-semibold text-foreground mb-2">{step.title}</div>
-                <div className="text-muted-foreground">{step.desc}</div>
-                {i < 3 && (
-                  <ArrowRight className="hidden md:block absolute top-10 -right-4 w-8 h-8 text-primary/30" />
-                )}
+          <div className="max-w-6xl mx-auto">
+            {/* Desktop Timeline */}
+            <div className="hidden md:block relative">
+              {/* Connection line */}
+              <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0" />
+              
+              <div className="grid grid-cols-4 gap-6">
+                {[
+                  { num: '01', icon: FileText, title: 'Заявка', desc: 'Заполните форму на сайте — это займёт 2 минуты' },
+                  { num: '02', icon: Phone, title: 'Созвон', desc: 'Обсудим условия и ответим на все вопросы' },
+                  { num: '03', icon: Settings, title: 'Интеграция', desc: 'Настроим API или загрузим ваш прайс-лист' },
+                  { num: '04', icon: Play, title: 'Запуск', desc: 'Ваши услуги появятся в каталоге Plooza' },
+                ].map((step, i) => (
+                  <div key={step.num} className="relative group">
+                    {/* Connector dot */}
+                    <div className="absolute top-[5.5rem] left-1/2 -translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-foreground z-10 group-hover:scale-125 transition-transform" />
+                    
+                    {/* Card */}
+                    <div className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-3xl p-6 hover:bg-background/10 hover:border-primary/50 transition-all group-hover:-translate-y-2 duration-300">
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="text-5xl font-bold text-primary">{step.num}</span>
+                        <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-foreground transition-colors">
+                          <step.icon className="w-6 h-6" />
+                        </div>
+                      </div>
+                      <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
+                      <p className="text-background/60 text-sm leading-relaxed">{step.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            
+            {/* Mobile Cards */}
+            <div className="md:hidden space-y-4">
+              {[
+                { num: '01', icon: FileText, title: 'Заявка', desc: 'Заполните форму на сайте — это займёт 2 минуты' },
+                { num: '02', icon: Phone, title: 'Созвон', desc: 'Обсудим условия и ответим на все вопросы' },
+                { num: '03', icon: Settings, title: 'Интеграция', desc: 'Настроим API или загрузим ваш прайс-лист' },
+                { num: '04', icon: Play, title: 'Запуск', desc: 'Ваши услуги появятся в каталоге Plooza' },
+              ].map((step, i) => (
+                <div key={step.num} className="flex gap-4 items-start">
+                  <div className="relative">
+                    <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-foreground font-bold text-xl">
+                      {step.num}
+                    </div>
+                    {i < 3 && (
+                      <div className="absolute top-14 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-primary/30" />
+                    )}
+                  </div>
+                  <div className="flex-1 pb-6">
+                    <h3 className="text-xl font-bold mb-1">{step.title}</h3>
+                    <p className="text-background/60 text-sm">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
