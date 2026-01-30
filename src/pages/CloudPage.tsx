@@ -3,7 +3,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CloudConfigurator from '@/components/cloud/CloudConfigurator';
 import CloudProvidersList from '@/components/cloud/CloudProvidersList';
-import { Cloud, Server, Shield, Zap } from 'lucide-react';
+import { Cloud, Server, Shield, Zap, ArrowRight, Check, Clock, Cpu, HardDrive, Database } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export interface CloudConfig {
   provider: string | null;
@@ -183,45 +184,123 @@ const CloudPage = () => {
     : allOS;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       
-      <main className="pt-24 pb-16">
-        {/* Hero Section - Minimal */}
-        <section className="container mx-auto px-4 mb-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-primary/10 rounded-xl">
-                  <Cloud className="w-6 h-6 text-primary" />
+      <main className="flex-1">
+        {/* Hero Section - Split Layout */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-background">
+          <div className="container py-10 md:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              
+              {/* Left - Text */}
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm text-primary font-medium mb-5">
+                  <Cloud className="w-4 h-4" />
+                  Облачные серверы
                 </div>
-                <span className="text-sm font-medium text-muted-foreground">
-                  {cloudProviders.length} провайдеров • {allLocations.length} локаций
-                </span>
+                
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+                  Настройте сервер.
+                  <br />
+                  <span className="text-primary">Сравните цены.</span>
+                </h1>
+                
+                <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-md">
+                  Конфигуратор облачных серверов от {cloudProviders.length} провайдеров. Выберите ресурсы — мы покажем лучшие предложения.
+                </p>
+                
+                <div className="flex flex-wrap gap-3 mb-8">
+                  <Button size="lg" className="rounded-xl">
+                    Подобрать сервер
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                  <Button size="lg" variant="outline" className="rounded-xl">
+                    Как это работает
+                  </Button>
+                </div>
+
+                {/* Trust indicators */}
+                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <Check className="w-4 h-4 text-primary" />
+                    Без наценки
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-primary" />
+                    Запуск за 60 сек
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Shield className="w-4 h-4 text-primary" />
+                    DDoS-защита
+                  </div>
+                </div>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-                Облачные серверы
-              </h1>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Zap className="w-4 h-4 text-primary" />
-                <span>Запуск за 60 сек</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Shield className="w-4 h-4 text-primary" />
-                <span>DDoS-защита</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Server className="w-4 h-4 text-primary" />
-                <span>NVMe</span>
+
+              {/* Right - Blocks */}
+              <div className="grid grid-cols-2 gap-3">
+                {/* Stats Block */}
+                <div className="col-span-2 bg-card border border-border rounded-2xl p-5">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-3xl font-bold text-foreground">{cloudProviders.length}</div>
+                      <div className="text-sm text-muted-foreground">провайдеров</div>
+                    </div>
+                    <div className="w-px h-10 bg-border" />
+                    <div>
+                      <div className="text-3xl font-bold text-foreground">{allLocations.length}</div>
+                      <div className="text-sm text-muted-foreground">локаций</div>
+                    </div>
+                    <div className="w-px h-10 bg-border" />
+                    <div>
+                      <div className="text-3xl font-bold text-primary">{allOS.length}</div>
+                      <div className="text-sm text-muted-foreground">ОС</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Feature Block 1 */}
+                <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-2xl p-4 hover:border-emerald-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-3">
+                    <Cpu className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">До 64 vCPU</div>
+                  <div className="text-xs text-muted-foreground">Мощные процессоры</div>
+                </div>
+
+                {/* Feature Block 2 */}
+                <div className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/20 rounded-2xl p-4 hover:border-blue-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3">
+                    <Database className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">До 256 ГБ RAM</div>
+                  <div className="text-xs text-muted-foreground">Для любых нагрузок</div>
+                </div>
+
+                {/* Feature Block 3 */}
+                <div className="bg-gradient-to-br from-violet-500/10 to-violet-500/5 border border-violet-500/20 rounded-2xl p-4 hover:border-violet-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center mb-3">
+                    <HardDrive className="w-5 h-5 text-violet-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">NVMe диски</div>
+                  <div className="text-xs text-muted-foreground">Максимальная скорость</div>
+                </div>
+
+                {/* Feature Block 4 */}
+                <div className="bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/20 rounded-2xl p-4 hover:border-amber-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mb-3">
+                    <Zap className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">Мгновенный запуск</div>
+                  <div className="text-xs text-muted-foreground">Сервер за минуту</div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Configurator */}
-        <section className="container mx-auto px-4">
+        <section className="container mx-auto px-4 py-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1">
               <div className="sticky top-32">
