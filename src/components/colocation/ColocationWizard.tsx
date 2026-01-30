@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  MapPin, Server, Wrench, User, 
-  ArrowRight, ArrowLeft, Check, Building2
+  MapPin, Server, Wrench, Search, 
+  ArrowRight, ArrowLeft, Check, Building2,
+  ExternalLink, Star, Zap
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 interface ColocationWizardProps {
@@ -20,7 +20,7 @@ const steps = [
   { id: 1, title: 'Локация', icon: MapPin, description: 'Выберите регион размещения' },
   { id: 2, title: 'Мощность', icon: Server, description: 'Укажите требования к оборудованию' },
   { id: 3, title: 'Услуги', icon: Wrench, description: 'Дополнительные сервисы' },
-  { id: 4, title: 'Контакты', icon: User, description: 'Оставьте заявку' },
+  { id: 4, title: 'Результаты', icon: Search, description: 'Подходящие провайдеры' },
 ];
 
 const locations = [
@@ -59,6 +59,106 @@ const services = [
   { id: 'crossconnect', label: 'Cross-connect', description: 'Прямые соединения с операторами' },
 ];
 
+// Mock provider data
+const allProviders = [
+  { 
+    id: 'dataline', 
+    name: 'DataLine', 
+    logo: 'DL',
+    locations: ['moscow', 'spb'],
+    tier: 'III',
+    priceFrom: 3500,
+    rating: 4.8,
+    features: ['remote-hands', 'monitoring', 'backup-power', 'ddos'],
+    rackSizes: ['1u', '2u', '4u', 'quarter', 'half', 'full'],
+    highlight: true,
+  },
+  { 
+    id: 'selectel', 
+    name: 'Selectel', 
+    logo: 'SE',
+    locations: ['moscow', 'spb'],
+    tier: 'III+',
+    priceFrom: 4000,
+    rating: 4.9,
+    features: ['remote-hands', 'monitoring', 'backup-power', 'ddos', 'crossconnect'],
+    rackSizes: ['1u', '2u', '4u', 'quarter', 'half', 'full'],
+    highlight: false,
+  },
+  { 
+    id: 'rostelecom', 
+    name: 'Ростелеком ЦОД', 
+    logo: 'RT',
+    locations: ['moscow', 'spb', 'kazan', 'novosibirsk'],
+    tier: 'III',
+    priceFrom: 3000,
+    rating: 4.5,
+    features: ['remote-hands', 'monitoring', 'backup-power'],
+    rackSizes: ['quarter', 'half', 'full'],
+    highlight: false,
+  },
+  { 
+    id: 'miran', 
+    name: 'Миран', 
+    logo: 'MR',
+    locations: ['spb'],
+    tier: 'III',
+    priceFrom: 2800,
+    rating: 4.6,
+    features: ['remote-hands', 'monitoring', 'backup-power', 'vpn'],
+    rackSizes: ['1u', '2u', '4u', 'quarter', 'half'],
+    highlight: false,
+  },
+  { 
+    id: 'stack', 
+    name: 'Stack Group', 
+    logo: 'SG',
+    locations: ['moscow'],
+    tier: 'IV',
+    priceFrom: 5500,
+    rating: 4.9,
+    features: ['remote-hands', 'monitoring', 'backup-power', 'ddos', 'vpn', 'crossconnect'],
+    rackSizes: ['quarter', 'half', 'full'],
+    highlight: true,
+  },
+  { 
+    id: 'ix', 
+    name: 'IXcellerate', 
+    logo: 'IX',
+    locations: ['moscow'],
+    tier: 'III+',
+    priceFrom: 4500,
+    rating: 4.7,
+    features: ['remote-hands', 'monitoring', 'backup-power', 'crossconnect'],
+    rackSizes: ['quarter', 'half', 'full'],
+    highlight: false,
+  },
+  { 
+    id: 'hetzner', 
+    name: 'Hetzner', 
+    logo: 'HZ',
+    locations: ['frankfurt', 'amsterdam'],
+    tier: 'III',
+    priceFrom: 49,
+    rating: 4.8,
+    features: ['remote-hands', 'monitoring', 'backup-power'],
+    rackSizes: ['1u', '2u', '4u', 'quarter', 'half', 'full'],
+    highlight: false,
+  },
+  { 
+    id: 'equinix', 
+    name: 'Equinix', 
+    logo: 'EQ',
+    locations: ['frankfurt', 'amsterdam'],
+    tier: 'IV',
+    priceFrom: 150,
+    rating: 4.9,
+    features: ['remote-hands', 'monitoring', 'backup-power', 'ddos', 'vpn', 'crossconnect'],
+    rackSizes: ['quarter', 'half', 'full'],
+    highlight: true,
+  },
+];
+
 const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -66,13 +166,31 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
     rackSize: '',
     power: '',
     services: [] as string[],
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    comment: '',
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const filteredProviders = useMemo(() => {
+    return allProviders.filter(provider => {
+      // Filter by location
+      if (formData.location && !provider.locations.includes(formData.location)) {
+        return false;
+      }
+      // Filter by rack size
+      if (formData.rackSize && !provider.rackSizes.includes(formData.rackSize)) {
+        return false;
+      }
+      // Filter by required services
+      if (formData.services.length > 0) {
+        const hasAllServices = formData.services.every(s => provider.features.includes(s));
+        if (!hasAllServices) return false;
+      }
+      return true;
+    }).sort((a, b) => {
+      // Sort by highlight first, then by rating
+      if (a.highlight && !b.highlight) return -1;
+      if (!a.highlight && b.highlight) return 1;
+      return b.rating - a.rating;
+    });
+  }, [formData]);
 
   const handleNext = () => {
     if (currentStep < 4) {
@@ -84,11 +202,6 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
-  };
-
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
   };
 
   const toggleService = (serviceId: string) => {
@@ -105,54 +218,24 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
       case 1: return !!formData.location;
       case 2: return !!formData.rackSize && !!formData.power;
       case 3: return true;
-      case 4: return !!formData.name && !!formData.email && !!formData.phone;
       default: return false;
     }
   };
 
+  const resetAndClose = () => {
+    setCurrentStep(1);
+    setFormData({
+      location: '',
+      rackSize: '',
+      power: '',
+      services: [],
+    });
+    onClose();
+  };
+
   if (!isOpen) return null;
 
-  if (isSubmitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-card border border-border rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto"
-      >
-        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Check className="w-8 h-8 text-primary" />
-        </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-          Заявка отправлена!
-        </h2>
-        <p className="text-muted-foreground mb-6">
-          Мы свяжемся с вами в течение 2 часов и подберём оптимальные варианты размещения
-        </p>
-        <Button 
-          variant="outline" 
-          className="rounded-xl"
-          onClick={() => {
-            setIsSubmitted(false);
-            setCurrentStep(1);
-            setFormData({
-              location: '',
-              rackSize: '',
-              power: '',
-              services: [],
-              name: '',
-              email: '',
-              phone: '',
-              company: '',
-              comment: '',
-            });
-            onClose();
-          }}
-        >
-          Закрыть
-        </Button>
-      </motion.div>
-    );
-  }
+  const selectedLocation = locations.find(l => l.id === formData.location);
 
   return (
     <div className="bg-card border border-border rounded-2xl overflow-hidden">
@@ -164,7 +247,7 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
             <span className="font-semibold text-foreground">Подбор дата-центра</span>
           </div>
           <button 
-            onClick={onClose}
+            onClick={resetAndClose}
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             ✕
@@ -354,7 +437,7 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
             </motion.div>
           )}
 
-          {/* Step 4: Contacts */}
+          {/* Step 4: Results */}
           {currentStep === 4 && (
             <motion.div
               key="step4"
@@ -363,70 +446,82 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.2 }}
             >
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                Контактные данные
-              </h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-semibold text-foreground">
+                  Подходящие провайдеры
+                </h3>
+                <Badge variant="secondary" className="text-sm">
+                  {filteredProviders.length} найдено
+                </Badge>
+              </div>
               <p className="text-muted-foreground mb-6">
-                Мы свяжемся с вами для уточнения деталей
+                {selectedLocation?.flag} {selectedLocation?.name} • {rackSizes.find(r => r.id === formData.rackSize)?.label} • {powerOptions.find(p => p.id === formData.power)?.label}
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Имя *</Label>
-                  <Input
-                    id="name"
-                    placeholder="Ваше имя"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="rounded-xl"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="company">Компания</Label>
-                  <Input
-                    id="company"
-                    placeholder="Название компании"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="rounded-xl"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="email@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="rounded-xl"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Телефон *</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="+7 (___) ___-__-__"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="rounded-xl"
-                  />
-                </div>
-                
-                <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="comment">Комментарий</Label>
-                  <Input
-                    id="comment"
-                    placeholder="Дополнительная информация"
-                    value={formData.comment}
-                    onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                    className="rounded-xl"
-                  />
-                </div>
+              <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+                {filteredProviders.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <Building2 className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>Нет провайдеров по заданным критериям</p>
+                    <p className="text-sm">Попробуйте изменить фильтры</p>
+                  </div>
+                ) : (
+                  filteredProviders.map((provider) => (
+                    <div
+                      key={provider.id}
+                      className={cn(
+                        "flex items-center gap-4 p-4 rounded-xl border-2 transition-all hover:border-primary/50",
+                        provider.highlight ? "border-primary/30 bg-primary/5" : "border-border"
+                      )}
+                    >
+                      {/* Logo */}
+                      <div className={cn(
+                        "w-14 h-14 rounded-xl flex items-center justify-center font-bold text-lg shrink-0",
+                        provider.highlight 
+                          ? "bg-primary text-primary-foreground" 
+                          : "bg-muted text-muted-foreground"
+                      )}>
+                        {provider.logo}
+                      </div>
+                      
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-semibold text-foreground">{provider.name}</span>
+                          {provider.highlight && (
+                            <Badge className="bg-primary/20 text-primary text-xs">
+                              <Zap className="w-3 h-3 mr-1" />
+                              Рекомендуем
+                            </Badge>
+                          )}
+                          <Badge variant="outline" className="text-xs">
+                            Tier {provider.tier}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                            {provider.rating}
+                          </div>
+                          <span>•</span>
+                          <span>{provider.features.length} услуг</span>
+                        </div>
+                      </div>
+                      
+                      {/* Price & Action */}
+                      <div className="text-right shrink-0">
+                        <div className="text-lg font-bold text-primary">
+                          от {provider.priceFrom.toLocaleString()}{provider.priceFrom < 1000 ? '€' : '₽'}
+                        </div>
+                        <div className="text-xs text-muted-foreground mb-2">в месяц</div>
+                        <Button size="sm" variant="outline" className="rounded-lg text-xs">
+                          Подробнее
+                          <ExternalLink className="w-3 h-3 ml-1" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </motion.div>
           )}
@@ -456,12 +551,11 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
           </Button>
         ) : (
           <Button
-            onClick={handleSubmit}
-            disabled={!canProceed()}
+            onClick={resetAndClose}
+            variant="outline"
             className="rounded-xl"
           >
-            Отправить заявку
-            <Check className="w-4 h-4 ml-2" />
+            Закрыть
           </Button>
         )}
       </div>
