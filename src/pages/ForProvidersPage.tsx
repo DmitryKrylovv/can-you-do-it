@@ -91,85 +91,128 @@ const ForProvidersPage = () => {
 
       {/* Hero - Full Screen */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background shapes */}
-        <motion.div 
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
+        {/* Animated gradient background */}
+        <div className="absolute inset-0">
           <motion.div 
-            className="absolute top-0 right-0 w-[60%] h-[80%] bg-primary-foreground/10 rounded-bl-[200px]"
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
+            className="absolute inset-0 bg-gradient-to-br from-primary via-blue-600 to-blue-800"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          />
+          
+          {/* Floating orbs */}
+          <motion.div 
+            className="absolute top-20 left-[10%] w-96 h-96 bg-white/10 rounded-full blur-3xl"
+            animate={{ 
+              y: [0, -30, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div 
-            className="absolute bottom-0 left-0 w-[40%] h-[50%] bg-primary-foreground/5 rounded-tr-[150px]"
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
+            className="absolute bottom-20 right-[10%] w-[500px] h-[500px] bg-blue-400/20 rounded-full blur-3xl"
+            animate={{ 
+              y: [0, 40, 0],
+              scale: [1, 0.9, 1],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
-        </motion.div>
+          <motion.div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/30 rounded-full blur-3xl"
+            animate={{ 
+              rotate: [0, 360],
+            }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          />
+          
+          {/* Grid pattern overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        </div>
         
         <div className="container relative z-10 text-center px-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 mb-8"
+          >
+            <motion.span 
+              className="w-2 h-2 bg-green-400 rounded-full"
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <span className="text-white/90 text-sm font-medium">Открыта регистрация партнёров</span>
+          </motion.div>
+          
           <motion.h1 
-            className="text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold leading-[0.9] mb-8"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.9] mb-8"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.span 
-              className="text-primary-foreground inline-block"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              className="text-white block"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Стань
+              Размещайте
             </motion.span>
-            <br />
             <motion.span 
-              className="text-primary-foreground/40 inline-block"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              className="text-white/50 block"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              партнёром
+              тарифы
             </motion.span>
-            <br />
             <motion.span 
-              className="text-primary-foreground inline-block"
+              className="text-white block"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              Plooza
+              в Plooza
             </motion.span>
           </motion.h1>
           
           <motion.p 
-            className="text-xl md:text-2xl text-primary-foreground/70 max-w-2xl mx-auto mb-12"
+            className="text-lg md:text-xl lg:text-2xl text-white/70 max-w-2xl mx-auto mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            Разместите хостинг-услуги в каталоге и получите доступ к тысячам клиентов
+            Маркетплейс хостинг-услуг с 15 000+ активных пользователей.
+            <br className="hidden sm:block" />
+            Подключение бесплатно. Платите только за результат.
           </motion.p>
 
           <motion.div
+            className="flex flex-col sm:flex-row justify-center gap-4"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
           >
-            <Button 
-              size="lg" 
-              variant="secondary" 
-              className="rounded-full text-lg h-14 px-10"
-              onClick={scrollToContent}
-            >
-              Узнать больше
-              <ArrowDown className="w-5 h-5 ml-2" />
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                size="lg" 
+                className="bg-white text-primary hover:bg-white/90 rounded-full text-lg h-14 px-10 font-semibold shadow-xl shadow-black/20"
+              >
+                Стать партнёром
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                size="lg" 
+                variant="ghost"
+                className="rounded-full text-lg h-14 px-10 text-white border-2 border-white/30 hover:bg-white/10"
+                onClick={scrollToContent}
+              >
+                Узнать больше
+                <ArrowDown className="w-5 h-5 ml-2" />
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
         
@@ -178,14 +221,19 @@ const ForProvidersPage = () => {
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
+          transition={{ delay: 1.5 }}
         >
-          <div 
-            className="w-8 h-14 border-2 border-primary-foreground/30 rounded-full flex justify-center pt-3 cursor-pointer"
+          <motion.div 
+            className="w-8 h-14 border-2 border-white/30 rounded-full flex justify-center pt-3 cursor-pointer backdrop-blur-sm"
             onClick={scrollToContent}
+            whileHover={{ scale: 1.1, borderColor: "rgba(255,255,255,0.5)" }}
           >
-            <div className="w-1.5 h-3 bg-primary-foreground/50 rounded-full animate-bounce" />
-          </div>
+            <motion.div 
+              className="w-1.5 h-3 bg-white/60 rounded-full"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+          </motion.div>
         </motion.div>
       </section>
 
@@ -358,227 +406,265 @@ const ForProvidersPage = () => {
 
       {/* How it works */}
       <section className="relative bg-foreground text-background py-24 md:py-32 overflow-hidden">
-        {/* Background decoration */}
+        {/* Animated background */}
         <div className="absolute inset-0 overflow-hidden">
+          {/* Moving gradient blobs */}
           <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-primary/20 rounded-full"
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
+            className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl"
+            animate={{ 
+              x: [0, 100, 0],
+              y: [0, 50, 0],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/10 rounded-full"
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
+            className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-blue-500/15 rounded-full blur-3xl"
+            animate={{ 
+              x: [0, -80, 0],
+              y: [0, -60, 0],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-primary/5 rounded-full"
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.4 }}
-          />
+          
+          {/* Animated lines */}
+          <svg className="absolute inset-0 w-full h-full">
+            <motion.line 
+              x1="0%" y1="30%" x2="100%" y2="70%"
+              stroke="url(#gradient1)" 
+              strokeWidth="1"
+              initial={{ pathLength: 0, opacity: 0 }}
+              whileInView={{ pathLength: 1, opacity: 0.3 }}
+              viewport={{ once: true }}
+              transition={{ duration: 2 }}
+            />
+            <motion.line 
+              x1="0%" y1="60%" x2="100%" y2="20%"
+              stroke="url(#gradient1)" 
+              strokeWidth="1"
+              initial={{ pathLength: 0, opacity: 0 }}
+              whileInView={{ pathLength: 1, opacity: 0.2 }}
+              viewport={{ once: true }}
+              transition={{ duration: 2, delay: 0.5 }}
+            />
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="transparent" />
+                <stop offset="50%" stopColor="hsl(var(--primary))" />
+                <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
         
         <div className="container px-6 relative z-10">
-          <AnimatedSection>
-            <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <motion.span 
+              className="inline-block px-4 py-2 bg-primary/20 rounded-full text-primary text-sm font-medium mb-6"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", delay: 0.2 }}
+            >
+              4 простых шага
+            </motion.span>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold">
               Как <span className="text-primary">подключиться</span>
             </h2>
-          </AnimatedSection>
+          </motion.div>
           
-          <div className="max-w-6xl mx-auto">
-            {/* Desktop Timeline */}
-            <div className="hidden md:block relative">
-              {/* Connection line */}
+          <div className="max-w-7xl mx-auto">
+            {/* Desktop Layout */}
+            <div className="hidden lg:grid grid-cols-4 gap-8 relative">
+              {/* Animated connection line */}
               <motion.div 
-                className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
+                className="absolute top-32 left-[12.5%] right-[12.5%] h-1"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-              
-              <motion.div 
-                className="grid grid-cols-4 gap-6"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={staggerContainer}
               >
-                {[
-                  { num: '01', icon: FileText, title: 'Заявка', desc: 'Заполните форму на сайте — это займёт 2 минуты' },
-                  { num: '02', icon: Phone, title: 'Созвон', desc: 'Обсудим условия и ответим на все вопросы' },
-                  { num: '03', icon: Settings, title: 'Интеграция', desc: 'Настроим API или загрузим ваш прайс-лист' },
-                  { num: '04', icon: Play, title: 'Запуск', desc: 'Ваши услуги появятся в каталоге Plooza' },
-                ].map((step, i) => (
-                  <motion.div 
-                    key={step.num} 
-                    className="relative group"
-                    variants={fadeInUp}
-                  >
-                    {/* Connector dot */}
-                    <motion.div 
-                      className="absolute top-[5.5rem] left-1/2 -translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-foreground z-10 group-hover:scale-125 transition-transform"
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.8 + i * 0.15, type: "spring" }}
-                    />
-                    
-                    {/* Card */}
-                    <motion.div 
-                      className="bg-background/5 backdrop-blur-sm border border-background/10 rounded-3xl p-6 hover:bg-background/10 hover:border-primary/50 transition-colors"
-                      whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                    >
-                      <div className="flex items-center justify-between mb-6">
-                        <span className="text-5xl font-bold text-primary">{step.num}</span>
-                        <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-foreground transition-colors">
-                          <step.icon className="w-6 h-6" />
-                        </div>
-                      </div>
-                      <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
-                      <p className="text-background/60 text-sm leading-relaxed">{step.desc}</p>
-                    </motion.div>
-                  </motion.div>
-                ))}
+                <motion.div 
+                  className="h-full bg-gradient-to-r from-primary via-blue-400 to-primary rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, delay: 0.5 }}
+                  style={{ transformOrigin: "left" }}
+                />
+                {/* Glowing effect */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-primary via-blue-400 to-primary rounded-full blur-md opacity-50"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, delay: 0.5 }}
+                  style={{ transformOrigin: "left" }}
+                />
               </motion.div>
-            </div>
-            
-            {/* Mobile Cards */}
-            <motion.div 
-              className="md:hidden space-y-4"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-            >
+              
               {[
-                { num: '01', icon: FileText, title: 'Заявка', desc: 'Заполните форму на сайте — это займёт 2 минуты' },
-                { num: '02', icon: Phone, title: 'Созвон', desc: 'Обсудим условия и ответим на все вопросы' },
-                { num: '03', icon: Settings, title: 'Интеграция', desc: 'Настроим API или загрузим ваш прайс-лист' },
-                { num: '04', icon: Play, title: 'Запуск', desc: 'Ваши услуги появятся в каталоге Plooza' },
+                { num: '01', icon: FileText, title: 'Заявка', desc: 'Заполните форму на сайте — это займёт всего 2 минуты', color: 'from-blue-500 to-blue-600' },
+                { num: '02', icon: Phone, title: 'Созвон', desc: 'Обсудим условия сотрудничества и ответим на вопросы', color: 'from-cyan-500 to-blue-500' },
+                { num: '03', icon: Settings, title: 'Интеграция', desc: 'Настроим API или загрузим ваш прайс-лист в систему', color: 'from-violet-500 to-blue-500' },
+                { num: '04', icon: Play, title: 'Запуск', desc: 'Ваши услуги появятся в каталоге Plooza', color: 'from-primary to-blue-400' },
               ].map((step, i) => (
                 <motion.div 
-                  key={step.num} 
-                  className="flex gap-4 items-start"
-                  variants={fadeInUp}
+                  key={step.num}
+                  className="relative"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + i * 0.2 }}
                 >
-                  <div className="relative">
-                    <motion.div 
-                      className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-foreground font-bold text-xl"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      {step.num}
-                    </motion.div>
-                    {i < 3 && (
-                      <div className="absolute top-14 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-primary/30" />
-                    )}
-                  </div>
-                  <div className="flex-1 pb-6">
-                    <h3 className="text-xl font-bold mb-1">{step.title}</h3>
-                    <p className="text-background/60 text-sm">{step.desc}</p>
+                  {/* Connector node */}
+                  <motion.div 
+                    className="absolute top-[7.5rem] left-1/2 -translate-x-1/2 z-20"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1 + i * 0.2, type: "spring" }}
+                  >
+                    <div className="w-6 h-6 bg-primary rounded-full border-4 border-foreground relative">
+                      <motion.div 
+                        className="absolute inset-0 bg-primary rounded-full"
+                        animate={{ scale: [1, 1.8, 1], opacity: [1, 0, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                      />
+                    </div>
+                  </motion.div>
+                  
+                  {/* Card */}
+                  <motion.div 
+                    className="group relative"
+                    whileHover={{ y: -12 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {/* Card glow on hover */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${step.color} rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500`} />
+                    
+                    <div className="relative bg-gradient-to-br from-background/10 to-background/5 backdrop-blur-xl border border-background/20 rounded-3xl p-8 h-full group-hover:border-primary/50 transition-colors">
+                      {/* Number badge */}
+                      <motion.div 
+                        className={`absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center shadow-lg`}
+                        whileHover={{ rotate: 12, scale: 1.1 }}
+                      >
+                        <span className="text-xl font-bold text-white">{step.num}</span>
+                      </motion.div>
+                      
+                      {/* Icon */}
+                      <motion.div 
+                        className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                      >
+                        <step.icon className="w-8 h-8 text-white" />
+                      </motion.div>
+                      
+                      <h3 className="text-2xl font-bold mb-3 text-background group-hover:text-primary transition-colors">
+                        {step.title}
+                      </h3>
+                      <p className="text-background/60 leading-relaxed">
+                        {step.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Tablet Layout */}
+            <div className="hidden md:grid lg:hidden grid-cols-2 gap-6">
+              {[
+                { num: '01', icon: FileText, title: 'Заявка', desc: 'Заполните форму на сайте — это займёт всего 2 минуты', color: 'from-blue-500 to-blue-600' },
+                { num: '02', icon: Phone, title: 'Созвон', desc: 'Обсудим условия сотрудничества и ответим на вопросы', color: 'from-cyan-500 to-blue-500' },
+                { num: '03', icon: Settings, title: 'Интеграция', desc: 'Настроим API или загрузим ваш прайс-лист в систему', color: 'from-violet-500 to-blue-500' },
+                { num: '04', icon: Play, title: 'Запуск', desc: 'Ваши услуги появятся в каталоге Plooza', color: 'from-primary to-blue-400' },
+              ].map((step, i) => (
+                <motion.div 
+                  key={step.num}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.15 }}
+                  whileHover={{ y: -8 }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${step.color} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity`} />
+                  
+                  <div className="relative bg-background/10 backdrop-blur-xl border border-background/20 rounded-3xl p-6 group-hover:border-primary/50 transition-colors">
+                    <div className="flex items-start gap-4">
+                      <motion.div 
+                        className={`w-14 h-14 bg-gradient-to-br ${step.color} rounded-xl flex items-center justify-center shrink-0 shadow-lg`}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <step.icon className="w-7 h-7 text-white" />
+                      </motion.div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-primary font-bold">{step.num}</span>
+                          <h3 className="text-xl font-bold text-background">{step.title}</h3>
+                        </div>
+                        <p className="text-background/60 text-sm">{step.desc}</p>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="bg-background py-24 md:py-32 overflow-hidden">
-        <div className="container px-6">
-          <AnimatedSection>
-            <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-16 text-center">
-              Что вы <span className="text-primary">получаете</span>
-            </h2>
-          </AnimatedSection>
-          
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            {[
-              { icon: Globe, title: 'Доступ к аудитории', desc: 'Тысячи пользователей ищут хостинг каждый день' },
-              { icon: BarChart3, title: 'Аналитика', desc: 'Статистика показов, кликов и конверсий' },
-              { icon: Headphones, title: 'Поддержка', desc: 'Персональный менеджер для каждого партнёра' },
-              { icon: Rocket, title: 'Быстрый старт', desc: 'Запуск за 1-3 рабочих дня' },
-              { icon: Zap, title: 'API интеграция', desc: 'Автоматическая синхронизация тарифов' },
-              { icon: Lock, title: 'Безопасность', desc: 'Проверенные клиенты и защита данных' },
-            ].map((feature, i) => (
-              <motion.div 
-                key={feature.title} 
-                className="bg-card border border-border rounded-3xl p-8 hover:shadow-xl transition-shadow"
-                variants={scaleIn}
-                whileHover={{ y: -8, scale: 1.02 }}
-              >
-                <motion.div
-                  initial={{ rotate: -180, opacity: 0 }}
-                  whileInView={{ rotate: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, type: "spring" }}
-                >
-                  <feature.icon className="w-10 h-10 text-primary mb-5" />
-                </motion.div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-primary py-24 md:py-32 overflow-hidden">
-        <div className="container px-6 text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.h2 
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6"
-              variants={fadeInUp}
-            >
-              Готовы начать?
-            </motion.h2>
-            <motion.p 
-              className="text-xl text-primary-foreground/70 mb-12 max-w-xl mx-auto"
-              variants={fadeInUp}
-            >
-              Оставьте заявку и мы свяжемся в течение 24 часов
-            </motion.p>
+            </div>
             
-            <motion.div 
-              className="flex flex-col sm:flex-row justify-center gap-4"
-              variants={fadeInUp}
-            >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" variant="secondary" className="rounded-full text-lg h-14 px-10">
-                  <Mail className="w-5 h-5 mr-2" />
-                  Оставить заявку
-                </Button>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button 
-                  size="lg" 
-                  variant="ghost" 
-                  className="rounded-full text-lg h-14 px-10 text-primary-foreground border-2 border-primary-foreground/30 hover:bg-primary-foreground/10"
+            {/* Mobile Layout */}
+            <div className="md:hidden space-y-4">
+              {[
+                { num: '01', icon: FileText, title: 'Заявка', desc: 'Заполните форму — это займёт 2 минуты', color: 'from-blue-500 to-blue-600' },
+                { num: '02', icon: Phone, title: 'Созвон', desc: 'Обсудим условия и ответим на вопросы', color: 'from-cyan-500 to-blue-500' },
+                { num: '03', icon: Settings, title: 'Интеграция', desc: 'Настроим API или загрузим прайс-лист', color: 'from-violet-500 to-blue-500' },
+                { num: '04', icon: Play, title: 'Запуск', desc: 'Услуги появятся в каталоге Plooza', color: 'from-primary to-blue-400' },
+              ].map((step, i) => (
+                <motion.div 
+                  key={step.num}
+                  className="relative"
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
                 >
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  Telegram
-                </Button>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+                  <div className="flex gap-4">
+                    {/* Timeline */}
+                    <div className="flex flex-col items-center">
+                      <motion.div 
+                        className={`w-12 h-12 bg-gradient-to-br ${step.color} rounded-xl flex items-center justify-center shadow-lg`}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <step.icon className="w-6 h-6 text-white" />
+                      </motion.div>
+                      {i < 3 && (
+                        <motion.div 
+                          className="w-0.5 h-16 bg-gradient-to-b from-primary to-transparent mt-2"
+                          initial={{ scaleY: 0 }}
+                          whileInView={{ scaleY: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.3 + i * 0.1 }}
+                          style={{ transformOrigin: "top" }}
+                        />
+                      )}
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1 pb-4">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-primary text-sm font-bold">{step.num}</span>
+                        <h3 className="text-lg font-bold text-background">{step.title}</h3>
+                      </div>
+                      <p className="text-background/60 text-sm">{step.desc}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
