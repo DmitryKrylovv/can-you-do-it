@@ -16,12 +16,6 @@ const Header = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const quickLinks = [
-    { label: 'Рейтинг провайдеров', href: '#' },
-    { label: 'Сравнить', href: '#' },
-    { label: 'Отзывы', href: '#' },
-    { label: 'Блог', href: '#' },
-  ];
 
   return (
     <>
@@ -39,6 +33,7 @@ const Header = () => {
               </div>
               <div className="hidden sm:flex items-center gap-6">
                 <a href="#" className="hover:opacity-80 transition-opacity">Для провайдеров</a>
+                <a href="#" className="hover:opacity-80 transition-opacity">Блог</a>
                 <a href="#" className="hover:opacity-80 transition-opacity">Помощь</a>
                 <a href="tel:+78001234567" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity font-medium">
                   <Phone className="w-3 h-3" />
@@ -78,18 +73,6 @@ const Header = () => {
                 </kbd>
               </button>
 
-              {/* Quick Links - Large Desktop */}
-              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
-                {quickLinks.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="px-2 xl:px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
 
               {/* Desktop Actions */}
               <div className="hidden md:flex items-center ml-auto">

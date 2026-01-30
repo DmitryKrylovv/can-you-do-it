@@ -84,14 +84,20 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50" onClick={() => onOpenChange(false)}>
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40 animate-in fade-in-0 duration-150 hidden sm:block" />
+    <div className="fixed inset-0 z-50">
+      {/* Overlay - only on desktop */}
+      <div 
+        className="absolute inset-0 bg-black/40 animate-in fade-in-0 duration-150 hidden md:block" 
+        onClick={() => onOpenChange(false)}
+      />
 
-      {/* Search Dropdown */}
-      <div className="absolute inset-0 sm:inset-auto sm:left-0 sm:right-0 sm:top-[105px] sm:px-4 animate-in fade-in-0 slide-in-from-top-2 duration-200">
-        <div className="h-full sm:h-auto sm:container sm:max-w-3xl sm:mx-auto">
-          <div className="h-full sm:h-auto bg-card sm:border sm:border-border sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
+      {/* Search Container - Fullscreen on mobile, dropdown on desktop */}
+      <div className="absolute inset-0 md:inset-auto md:left-0 md:right-0 md:top-[105px] md:px-4 animate-in fade-in-0 md:slide-in-from-top-2 duration-200">
+        <div className="h-full md:h-auto md:container md:max-w-3xl md:mx-auto">
+          <div 
+            className="h-full md:h-auto bg-background md:bg-card md:border md:border-border md:rounded-2xl md:shadow-2xl overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Search Input */}
             <div className="p-3 sm:p-4 bg-muted/30 border-b sm:border-b-0 border-border">
               <div className="relative">
