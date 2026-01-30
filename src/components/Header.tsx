@@ -73,6 +73,18 @@ const Header = () => {
                 </kbd>
               </button>
 
+              {/* Quick Links - Desktop */}
+              <nav className="hidden lg:flex items-center gap-1">
+                <a href="#" className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap">
+                  Рейтинг провайдеров
+                </a>
+                <a href="#" className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap">
+                  Сравнить
+                </a>
+                <a href="#" className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap">
+                  Отзывы
+                </a>
+              </nav>
 
               {/* Desktop Actions */}
               <div className="hidden md:flex items-center ml-auto">
