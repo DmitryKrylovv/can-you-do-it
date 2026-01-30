@@ -148,7 +148,7 @@ const ColocationPage = () => {
         <section className="border-y border-border bg-muted/30">
           <div className="container py-6">
           <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="text-sm text-muted-foreground">Дата-центры, подключённые к Plooza:</span>
+              <span className="text-sm text-muted-foreground">Подключённые дата-центры:</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
               {datacenterLogos.map((dc) => (
