@@ -7,7 +7,7 @@ import VDSProviderBar from '@/components/vds/VDSProviderBar';
 import { 
   ArrowRight, CreditCard, BarChart3, Settings, 
   Check, Zap, Shield, Clock, SlidersHorizontal,
-  ArrowUpDown, Grid3X3, List
+  ArrowUpDown, Grid3X3, List, Headphones
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -124,63 +124,112 @@ const VDSPage = () => {
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 via-background to-background">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-          </div>
-          
-          <div className="container relative py-12 md:py-16">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm text-primary font-medium mb-4">
-                <Zap className="w-4 h-4" />
-                Единая платформа для VDS/VPS
-              </div>
+        {/* Hero Section - Split Layout */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-background">
+          <div className="container py-10 md:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               
-              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-                Все провайдеры.{' '}
-                <span className="text-primary">Один кабинет.</span>
-              </h1>
-              
-              <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Выбирайте лучшие тарифы и управляйте всеми серверами в едином интерфейсе Plooza
-              </p>
-              
-              {/* Trust indicators */}
-              <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-primary" />
-                  Без комиссии
+              {/* Left - Text */}
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm text-primary font-medium mb-5">
+                  <Zap className="w-4 h-4" />
+                  VDS / VPS
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-primary" />
-                  Активация 5 мин
+                
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+                  Все провайдеры.
+                  <br />
+                  <span className="text-primary">Один кабинет.</span>
+                </h1>
+                
+                <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-md">
+                  Выбирайте лучшие тарифы и управляйте всеми серверами в едином интерфейсе Plooza
+                </p>
+                
+                <div className="flex flex-wrap gap-3 mb-8">
+                  <Button size="lg" className="rounded-xl">
+                    Выбрать тариф
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                  <Button size="lg" variant="outline" className="rounded-xl">
+                    Как это работает
+                  </Button>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <Shield className="w-4 h-4 text-primary" />
-                  Безопасные платежи
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Features Banner */}
-        <section className="border-y border-border bg-card">
-          <div className="container py-4">
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-              <div className="flex items-center gap-2">
-                <CreditCard className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-foreground">Единый счёт</span>
+                {/* Trust indicators */}
+                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <Check className="w-4 h-4 text-primary" />
+                    Без комиссии
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-primary" />
+                    Активация 5 мин
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Shield className="w-4 h-4 text-primary" />
+                    Безопасно
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-foreground">Единый дашборд</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Settings className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-foreground">Единый API</span>
+
+              {/* Right - Blocks */}
+              <div className="grid grid-cols-2 gap-3">
+                {/* Stats Block */}
+                <div className="col-span-2 bg-card border border-border rounded-2xl p-5">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-3xl font-bold text-foreground">{allTariffs.length}</div>
+                      <div className="text-sm text-muted-foreground">тарифов</div>
+                    </div>
+                    <div className="w-px h-10 bg-border" />
+                    <div>
+                      <div className="text-3xl font-bold text-foreground">{providers.length}</div>
+                      <div className="text-sm text-muted-foreground">провайдеров</div>
+                    </div>
+                    <div className="w-px h-10 bg-border" />
+                    <div>
+                      <div className="text-3xl font-bold text-primary">от {Math.min(...allTariffs.map(t => t.price))}₽</div>
+                      <div className="text-sm text-muted-foreground">в месяц</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Feature Block 1 */}
+                <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-2xl p-4 hover:border-emerald-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-3">
+                    <CreditCard className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">Единый счёт</div>
+                  <div className="text-xs text-muted-foreground">Один платёж за всё</div>
+                </div>
+
+                {/* Feature Block 2 */}
+                <div className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/20 rounded-2xl p-4 hover:border-blue-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3">
+                    <BarChart3 className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">Единый дашборд</div>
+                  <div className="text-xs text-muted-foreground">Мониторинг серверов</div>
+                </div>
+
+                {/* Feature Block 3 */}
+                <div className="bg-gradient-to-br from-violet-500/10 to-violet-500/5 border border-violet-500/20 rounded-2xl p-4 hover:border-violet-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center mb-3">
+                    <Settings className="w-5 h-5 text-violet-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">Единый API</div>
+                  <div className="text-xs text-muted-foreground">Автоматизация</div>
+                </div>
+
+                {/* Feature Block 4 */}
+                <div className="bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/20 rounded-2xl p-4 hover:border-amber-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mb-3">
+                    <Headphones className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div className="font-semibold text-foreground text-sm">Поддержка 24/7</div>
+                  <div className="text-xs text-muted-foreground">Решаем за вас</div>
+                </div>
               </div>
             </div>
           </div>
