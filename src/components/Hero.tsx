@@ -66,7 +66,7 @@ const Hero = () => {
       <div className="container px-3 sm:px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
           {/* Main Hero Banner */}
-          <div className={`lg:col-span-2 relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br ${slides[currentSlide].gradient} p-5 sm:p-8 min-h-[240px] sm:min-h-[300px] transition-all duration-500`}>
+          <div className={`lg:col-span-2 relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br ${slides[currentSlide].gradient} p-5 sm:p-8 min-h-[300px] sm:min-h-[380px] transition-all duration-500`}>
             {/* Decorative elements */}
             <div className="absolute top-10 right-10 w-48 sm:w-64 h-48 sm:h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-32 sm:w-48 h-32 sm:h-48 bg-white/5 rounded-full blur-2xl" />
@@ -143,7 +143,7 @@ const Hero = () => {
               return (
                 <div
                   key={index}
-                  className="flex-1 bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 relative overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-md transition-all min-h-[110px] sm:min-h-[140px]"
+                  className="flex-1 bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 relative overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-md transition-all min-h-[140px] sm:min-h-[182px]"
                 >
                   <div className="relative z-10">
                     <h3 className="text-sm sm:text-base font-semibold text-foreground mb-0.5">
