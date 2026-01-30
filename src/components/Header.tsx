@@ -32,7 +32,7 @@ const Header = () => {
                 </a>
               </div>
               <div className="hidden sm:flex items-center gap-6">
-                <a href="#" className="hover:opacity-80 transition-opacity">Для провайдеров</a>
+                <Link to="/for-providers" className="hover:opacity-80 transition-opacity">Для провайдеров</Link>
                 <a href="#" className="hover:opacity-80 transition-opacity">Блог</a>
                 <a href="#" className="hover:opacity-80 transition-opacity">Помощь</a>
                 <a href="tel:+78001234567" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity font-medium">
