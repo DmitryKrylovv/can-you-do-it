@@ -8,6 +8,18 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+// Datacenter logos/partners
+const datacenterLogos = [
+  { name: 'DataLine', abbr: 'DL', color: 'bg-blue-600' },
+  { name: 'Selectel', abbr: 'SE', color: 'bg-emerald-600' },
+  { name: 'Ростелеком', abbr: 'RT', color: 'bg-violet-600' },
+  { name: 'Stack Group', abbr: 'SG', color: 'bg-orange-600' },
+  { name: 'IXcellerate', abbr: 'IX', color: 'bg-cyan-600' },
+  { name: 'Миран', abbr: 'MR', color: 'bg-rose-600' },
+  { name: 'Hetzner', abbr: 'HZ', color: 'bg-red-600' },
+  { name: 'Equinix', abbr: 'EQ', color: 'bg-indigo-600' },
+];
+
 const ColocationPage = () => {
   const [showWizard, setShowWizard] = useState(false);
 
@@ -131,6 +143,28 @@ const ColocationPage = () => {
           </div>
         </section>
 
+        {/* Datacenter Logos */}
+        <section className="border-y border-border bg-muted/30">
+          <div className="container py-6">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="text-sm text-muted-foreground">Работаем с ведущими дата-центрами:</span>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+              {datacenterLogos.map((dc) => (
+                <div 
+                  key={dc.name}
+                  className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-xl hover:border-primary/30 transition-colors cursor-pointer"
+                >
+                  <div className={`w-8 h-8 ${dc.color} rounded-lg flex items-center justify-center text-white font-bold text-xs`}>
+                    {dc.abbr}
+                  </div>
+                  <span className="text-sm font-medium text-foreground hidden sm:inline">{dc.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Wizard Section */}
         <section className="container py-8 md:py-12">
           <ColocationWizard 
@@ -144,7 +178,7 @@ const ColocationPage = () => {
                 Подберите дата-центр за 2 минуты
               </h2>
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                Ответьте на несколько вопросов, и мы подберём оптимальные варианты размещения вашего оборудования
+                Ответьте на несколько вопросов, и мы покажем подходящих провайдеров с ценами
               </p>
               <Button 
                 size="lg" 
