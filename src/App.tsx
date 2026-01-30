@@ -10,6 +10,7 @@ import CloudPage from "./pages/CloudPage";
 import ColocationPage from "./pages/ColocationPage";
 import ProvidersRatingPage from "./pages/ProvidersRatingPage";
 import ForProvidersPage from "./pages/ForProvidersPage";
+import BlogPage from "./pages/BlogPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/colocation" element={<ColocationPage />} />
           <Route path="/providers" element={<ProvidersRatingPage />} />
           <Route path="/for-providers" element={<ForProvidersPage />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/provider/:providerId" element={<ProviderPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

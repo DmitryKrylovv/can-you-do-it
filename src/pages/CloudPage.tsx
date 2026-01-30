@@ -187,66 +187,34 @@ const CloudPage = () => {
       <Header />
       
       <main className="pt-24 pb-16">
-        {/* Hero Section */}
-        <section className="container mx-auto px-4 mb-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-6">
-              <Cloud className="w-4 h-4" />
-              Облачные серверы
+        {/* Hero Section - Minimal */}
+        <section className="container mx-auto px-4 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 bg-primary/10 rounded-xl">
+                  <Cloud className="w-6 h-6 text-primary" />
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">
+                  {cloudProviders.length} провайдеров • {allLocations.length} локаций
+                </span>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground">
+                Облачные серверы
+              </h1>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Конфигуратор облачных серверов
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Настройте идеальную конфигурацию и сравните цены от {cloudProviders.length} провайдеров
-            </p>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">{cloudProviders.length}</div>
-                <div className="text-sm text-muted-foreground">провайдеров</div>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Zap className="w-4 h-4 text-primary" />
+                <span>Запуск за 60 сек</span>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">{allLocations.length}</div>
-                <div className="text-sm text-muted-foreground">локаций</div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Shield className="w-4 h-4 text-primary" />
+                <span>DDoS-защита</span>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">{allOS.length}</div>
-                <div className="text-sm text-muted-foreground">ОС</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features */}
-        <section className="container mx-auto px-4 mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Zap className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <div className="font-medium text-foreground">Мгновенный запуск</div>
-                <div className="text-sm text-muted-foreground">Сервер за 60 секунд</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Shield className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <div className="font-medium text-foreground">DDoS-защита</div>
-                <div className="text-sm text-muted-foreground">Включена бесплатно</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Server className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <div className="font-medium text-foreground">NVMe диски</div>
-                <div className="text-sm text-muted-foreground">Максимальная скорость</div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Server className="w-4 h-4 text-primary" />
+                <span>NVMe</span>
               </div>
             </div>
           </div>
