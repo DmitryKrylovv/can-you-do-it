@@ -121,7 +121,7 @@ const BlogPage = () => {
       
       <main className="pt-16 pb-16">
         {/* Categories Bar */}
-        <div className="border-b border-border bg-card/50 sticky top-16 z-30 backdrop-blur-sm">
+        <div className="border-b border-border bg-background sticky top-16 z-30">
           <div className="container mx-auto px-4">
             <div className="py-3">
               <BlogCategories 
