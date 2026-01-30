@@ -182,7 +182,7 @@ const ProductsMenu = ({ isOpen, onOpenChange }: ProductsMenuProps) => {
       <button
         onClick={() => onOpenChange(!isOpen)}
         className={cn(
-          "flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all",
+          "flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all",
           isOpen 
             ? "bg-muted text-foreground" 
             : "bg-muted hover:bg-muted/80 text-foreground"
