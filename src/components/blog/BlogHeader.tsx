@@ -28,9 +28,7 @@ const BlogHeader = () => {
             <div className="w-px h-6 bg-border hidden sm:block" />
             
             <Link to="/blog" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">P</span>
-              </div>
+              <img src="/plooza-logo.svg" alt="Plooza" className="h-7" />
               <span className="font-semibold text-foreground">Блог</span>
             </Link>
           </div>
