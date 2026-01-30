@@ -95,7 +95,7 @@ const Header = () => {
 
               {/* Desktop Actions */}
               <div className="hidden md:flex items-center ml-auto">
-                <Button variant="outline" size="sm" className="text-sm font-medium gap-2 rounded-xl">
+                <Button size="sm" className="text-sm font-medium gap-2 rounded-xl bg-blue-500 hover:bg-blue-600 text-primary-foreground">
                   <User className="w-4 h-4" />
                   Войти
                 </Button>
@@ -232,7 +232,7 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
           <Phone className="w-4 h-4" />
           8 800 123-45-67
         </a>
-        <Button variant="outline" className="w-full" size="sm">
+        <Button className="w-full bg-blue-500 hover:bg-blue-600 text-primary-foreground" size="sm">
           <User className="w-4 h-4 mr-2" />
           Войти
         </Button>
