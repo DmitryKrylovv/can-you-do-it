@@ -66,25 +66,26 @@ const Header = () => {
                 />
               </div>
 
-              {/* Search Button - Desktop */}
+              {/* Search Button - Desktop & Tablet */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden md:flex items-center gap-3 flex-1 max-w-md h-10 px-4 bg-muted rounded-xl text-sm text-muted-foreground hover:bg-muted/80 transition-colors"
+                className="hidden md:flex items-center gap-2 lg:gap-3 flex-1 max-w-xs lg:max-w-md h-10 px-3 lg:px-4 bg-muted rounded-xl text-sm text-muted-foreground hover:bg-muted/80 transition-colors"
               >
                 <Search className="w-4 h-4" />
-                <span>Поиск провайдеров...</span>
-                <kbd className="ml-auto hidden lg:inline-flex h-5 items-center gap-1 rounded border border-border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+                <span className="hidden lg:inline">Поиск провайдеров...</span>
+                <span className="lg:hidden">Поиск...</span>
+                <kbd className="ml-auto hidden xl:inline-flex h-5 items-center gap-1 rounded border border-border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
                   ⌘K
                 </kbd>
               </button>
 
-              {/* Quick Links - Desktop */}
-              <nav className="hidden xl:flex items-center gap-1">
+              {/* Quick Links - Large Desktop */}
+              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
                 {quickLinks.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted"
+                    className="px-2 xl:px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap"
                   >
                     {item.label}
                   </a>

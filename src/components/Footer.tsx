@@ -32,9 +32,9 @@ const Footer = () => {
   return (
     <footer className="bg-foreground text-background py-10 sm:py-12 md:py-16">
       <div className="container px-4 sm:px-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-8 sm:mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Logo & description */}
-          <div className="col-span-2 md:col-span-1 mb-2 sm:mb-0">
+          <div className="col-span-2 sm:col-span-4 md:col-span-1 mb-2 sm:mb-0">
             <a href="/" className="inline-block mb-3 sm:mb-4">
               <img src={ploozaLogo} alt="Plooza" className="h-6 sm:h-7 brightness-0 invert" />
             </a>

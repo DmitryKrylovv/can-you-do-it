@@ -205,10 +205,10 @@ const ProductsMenu = ({ isOpen, onOpenChange }: ProductsMenuProps) => {
           />
           
           {/* Menu */}
-          <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden min-w-[900px] animate-in fade-in-0 zoom-in-95 duration-200">
+          <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden w-[calc(100vw-2rem)] md:w-auto md:min-w-[750px] lg:min-w-[900px] max-w-[900px] animate-in fade-in-0 zoom-in-95 duration-200">
             <div className="flex">
               {/* Categories sidebar */}
-              <div className="w-72 bg-muted/50 p-3 border-r border-border">
+              <div className="w-48 md:w-56 lg:w-72 bg-muted/50 p-2 md:p-3 border-r border-border flex-shrink-0">
                 {productCategories.map((category) => {
                   const Icon = category.icon;
                   return (
@@ -216,7 +216,7 @@ const ProductsMenu = ({ isOpen, onOpenChange }: ProductsMenuProps) => {
                       key={category.id}
                       onClick={() => setActiveCategory(category.id)}
                       className={cn(
-                        "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left",
+                        "w-full flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-medium transition-all text-left",
                         activeCategory === category.id
                           ? "bg-primary text-primary-foreground"
                           : "text-foreground hover:bg-muted"
@@ -230,35 +230,35 @@ const ProductsMenu = ({ isOpen, onOpenChange }: ProductsMenuProps) => {
               </div>
 
               {/* Items */}
-              <div className="flex-1 p-5">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
+              <div className="flex-1 p-4 lg:p-5 min-w-0">
+                <h3 className="text-base lg:text-lg font-semibold text-foreground mb-3 lg:mb-4">
                   {productCategories.find(c => c.id === activeCategory)?.label}
                 </h3>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-3">
                   {activeItems.map((item) => {
                     const Icon = item.icon;
                     return (
                       <a
                         key={item.title}
                         href={item.href}
-                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-muted transition-colors"
+                        className="group flex items-start gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg lg:rounded-xl hover:bg-muted transition-colors"
                         onClick={() => onOpenChange(false)}
                       >
-                        <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                          <Icon className="w-5 h-5" />
+                        <div className="p-1.5 lg:p-2 rounded-md lg:rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors flex-shrink-0">
+                          <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium text-foreground group-hover:text-primary transition-colors">
+                          <div className="flex items-center gap-1.5 lg:gap-2 flex-wrap">
+                            <span className="font-medium text-xs lg:text-sm text-foreground group-hover:text-primary transition-colors">
                               {item.title}
                             </span>
                             {item.badge && (
-                              <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
+                              <span className="text-[9px] lg:text-[10px] bg-primary/10 text-primary px-1.5 lg:px-2 py-0.5 rounded-full font-medium">
                                 {item.badge}
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                          <p className="text-[10px] lg:text-xs text-muted-foreground mt-0.5 line-clamp-2 hidden md:block">
                             {item.description}
                           </p>
                         </div>
@@ -268,11 +268,11 @@ const ProductsMenu = ({ isOpen, onOpenChange }: ProductsMenuProps) => {
                 </div>
 
                 {/* Footer links */}
-                <div className="flex items-center gap-6 mt-6 pt-4 border-t border-border">
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <div className="flex items-center gap-4 lg:gap-6 mt-4 lg:mt-6 pt-3 lg:pt-4 border-t border-border">
+                  <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors">
                     Бесплатный перенос сайта
                   </a>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#" className="text-xs lg:text-sm text-muted-foreground hover:text-primary transition-colors">
                     Партнерская программа
                   </a>
                 </div>

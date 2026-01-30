@@ -26,7 +26,7 @@ const CTA = () => {
               Скидки, акции и новые тарифы от хостинг-провайдеров — прямо в вашу почту
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-sm md:max-w-md mx-auto">
               <Input
                 type="email"
                 placeholder="Ваш email"

@@ -70,9 +70,9 @@ const Hero = () => {
   return (
     <section className="py-4 sm:py-6 bg-background">
       <div className="container px-3 sm:px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
           {/* Main Hero Banner */}
-          <div className={`lg:col-span-2 relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br ${slides[currentSlide].gradient} p-5 sm:p-8 min-h-[300px] sm:min-h-[380px] transition-all duration-500`}>
+          <div className={`md:col-span-2 relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br ${slides[currentSlide].gradient} p-5 sm:p-8 min-h-[300px] sm:min-h-[340px] lg:min-h-[380px] transition-all duration-500`}>
             {/* Decorative elements */}
             <div className="absolute top-10 right-10 w-48 sm:w-64 h-48 sm:h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-32 sm:w-48 h-32 sm:h-48 bg-white/5 rounded-full blur-2xl" />
@@ -143,7 +143,7 @@ const Hero = () => {
           </div>
 
           {/* Side Promo Cards */}
-          <div className="grid grid-cols-3 lg:grid-cols-1 gap-2 sm:gap-3">
+          <div className="grid grid-cols-3 md:grid-cols-1 gap-2 sm:gap-3">
             {promoCards.map((card, index) => {
               const Icon = card.icon;
               return (
