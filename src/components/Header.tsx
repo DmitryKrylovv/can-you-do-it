@@ -9,6 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import ProductsMenu from '@/components/header/ProductsMenu';
 import SearchFilter from '@/components/header/SearchFilter';
+import ploozaLogo from '@/assets/plooza-logo.svg';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -53,11 +54,8 @@ const Header = () => {
           <div className="container">
             <div className="flex items-center h-16 gap-4">
               {/* Logo */}
-              <Link to="/" className="flex-shrink-0 flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-lg">P</span>
-                </div>
-                <span className="text-xl font-bold text-foreground">Plooza</span>
+              <Link to="/" className="flex-shrink-0">
+                <img src={ploozaLogo} alt="Plooza" className="h-8" />
               </Link>
 
               {/* Products Menu Button - Desktop */}
@@ -167,11 +165,8 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="flex flex-col h-full">
       {/* Mobile Header */}
-      <div className="p-4 border-b border-border flex items-center gap-2">
-        <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-          <span className="text-primary-foreground font-bold">P</span>
-        </div>
-        <span className="text-lg font-bold text-foreground">Plooza</span>
+      <div className="p-4 border-b border-border">
+        <img src={ploozaLogo} alt="Plooza" className="h-7" />
       </div>
 
       {/* Mobile Navigation */}
