@@ -1,4 +1,5 @@
-import { Server, HardDrive, Globe, Shield, Cloud, Database, LayoutGrid, Cpu } from 'lucide-react';
+import { Server, HardDrive, Globe, Building2, Cloud, Database, LayoutGrid, Cpu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Categories = () => {
   const categories = [
@@ -6,9 +7,11 @@ const Categories = () => {
       icon: LayoutGrid,
       title: 'Весь каталог',
       badge: null,
+      badgeColor: '',
       gradient: 'from-slate-500 to-slate-600',
       iconBg: 'bg-slate-100',
       iconColor: 'text-slate-600',
+      href: '#',
     },
     {
       icon: Server,
@@ -18,6 +21,7 @@ const Categories = () => {
       gradient: 'from-blue-500 to-blue-600',
       iconBg: 'bg-blue-50',
       iconColor: 'text-blue-600',
+      href: '/vds',
     },
     {
       icon: HardDrive,
@@ -27,15 +31,18 @@ const Categories = () => {
       gradient: 'from-violet-500 to-violet-600',
       iconBg: 'bg-violet-50',
       iconColor: 'text-violet-600',
+      href: '#',
     },
     {
       icon: Database,
       title: 'Выделенные',
       subtitle: 'серверы',
       badge: null,
+      badgeColor: '',
       gradient: 'from-orange-500 to-orange-600',
       iconBg: 'bg-orange-50',
       iconColor: 'text-orange-600',
+      href: '#',
     },
     {
       icon: Globe,
@@ -45,15 +52,17 @@ const Categories = () => {
       gradient: 'from-cyan-500 to-cyan-600',
       iconBg: 'bg-cyan-50',
       iconColor: 'text-cyan-600',
+      href: '#',
     },
     {
-      icon: Shield,
-      title: 'SSL',
-      badge: 'Бесплатно',
-      badgeColor: 'bg-primary',
+      icon: Building2,
+      title: 'Colocation',
+      badge: null,
+      badgeColor: '',
       gradient: 'from-green-500 to-green-600',
       iconBg: 'bg-green-50',
       iconColor: 'text-green-600',
+      href: '/colocation',
     },
     {
       icon: Cloud,
@@ -63,6 +72,7 @@ const Categories = () => {
       gradient: 'from-sky-500 to-sky-600',
       iconBg: 'bg-sky-50',
       iconColor: 'text-sky-600',
+      href: '#',
     },
     {
       icon: Cpu,
@@ -73,6 +83,7 @@ const Categories = () => {
       gradient: 'from-rose-500 to-rose-600',
       iconBg: 'bg-rose-50',
       iconColor: 'text-rose-600',
+      href: '#',
     },
   ];
 
@@ -82,10 +93,16 @@ const Categories = () => {
         <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4 md:gap-6">
           {categories.map((category) => {
             const Icon = category.icon;
+            const isInternal = category.href.startsWith('/');
+            const Component = isInternal ? Link : 'a';
+            const linkProps = isInternal 
+              ? { to: category.href } 
+              : { href: category.href };
+            
             return (
-              <a
+              <Component
                 key={category.title}
-                href="#"
+                {...linkProps as any}
                 className="group flex flex-col items-center text-center"
               >
                 <div className="relative mb-3">
@@ -115,7 +132,7 @@ const Categories = () => {
                     {category.subtitle}
                   </span>
                 )}
-              </a>
+              </Component>
             );
           })}
         </div>
