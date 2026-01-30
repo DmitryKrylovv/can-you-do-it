@@ -150,7 +150,7 @@ const ForProvidersPage = () => {
               <Button 
                 size="lg"
                 onClick={scrollToForm}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-lg h-16 px-12 font-bold uppercase tracking-wide"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl text-lg h-16 px-12 font-bold uppercase tracking-wide"
               >
                 Оставить заявку
                 <ArrowRight className="w-5 h-5 ml-3" />
@@ -170,7 +170,7 @@ const ForProvidersPage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
           >
-            <div className="bg-primary p-8 text-primary-foreground">
+            <div className="bg-primary p-8 text-primary-foreground rounded-2xl">
               <div className="text-7xl font-black mb-2">+40%</div>
               <div className="text-primary-foreground/70 text-lg">рост заказов<br />у партнёров</div>
             </div>
@@ -231,7 +231,7 @@ const ForProvidersPage = () => {
                 variants={scaleIn}
                 className="group relative"
               >
-                <div className="bg-muted p-8 border-4 border-transparent hover:border-primary transition-colors h-full">
+                <div className="bg-muted p-8 border-2 border-transparent hover:border-primary transition-colors h-full rounded-2xl">
                   <stat.icon className="w-8 h-8 text-primary mb-6" />
                   <div className="text-5xl font-black text-foreground mb-2">{stat.value}</div>
                   <div className="text-lg font-bold mb-1">{stat.label}</div>
@@ -288,7 +288,7 @@ const ForProvidersPage = () => {
                   
                   {/* Number */}
                   <div className="relative z-10 shrink-0">
-                    <div className="w-14 h-14 bg-primary text-primary-foreground flex items-center justify-center font-black text-lg group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 bg-primary text-primary-foreground flex items-center justify-center font-black text-lg group-hover:scale-110 transition-transform rounded-xl">
                       {step.num}
                     </div>
                   </div>
@@ -307,7 +307,7 @@ const ForProvidersPage = () => {
 
             {/* Form */}
             <motion.div 
-              className="bg-background text-foreground p-8 md:p-12 sticky top-8"
+              className="bg-background text-foreground p-8 md:p-12 sticky top-8 rounded-2xl"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -326,7 +326,7 @@ const ForProvidersPage = () => {
                     placeholder="ООО «Хостинг»"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="h-14 rounded-none border-2 border-border focus:border-primary text-lg"
+                    className="h-14 rounded-xl border-2 border-border focus:border-primary text-lg"
                   />
                 </div>
                 
@@ -339,7 +339,7 @@ const ForProvidersPage = () => {
                     placeholder="partner@hosting.ru"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="h-14 rounded-none border-2 border-border focus:border-primary text-lg"
+                    className="h-14 rounded-xl border-2 border-border focus:border-primary text-lg"
                   />
                 </div>
                 
@@ -352,14 +352,14 @@ const ForProvidersPage = () => {
                     placeholder="+7 (999) 123-45-67"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="h-14 rounded-none border-2 border-border focus:border-primary text-lg"
+                    className="h-14 rounded-xl border-2 border-border focus:border-primary text-lg"
                   />
                 </div>
                 
                 <Button 
                   type="submit"
                   size="lg"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-16 text-lg font-bold uppercase tracking-wide"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl h-16 text-lg font-bold uppercase tracking-wide"
                 >
                   <Send className="w-5 h-5 mr-3" />
                   Отправить заявку
@@ -421,7 +421,7 @@ const ForProvidersPage = () => {
             <Button 
               size="lg"
               onClick={scrollToForm}
-              className="bg-foreground text-background hover:bg-foreground/90 rounded-none text-lg h-16 px-16 font-bold uppercase tracking-wide"
+              className="bg-foreground text-background hover:bg-foreground/90 rounded-xl text-lg h-16 px-16 font-bold uppercase tracking-wide"
             >
               Стать партнёром
               <ArrowRight className="w-5 h-5 ml-3" />
