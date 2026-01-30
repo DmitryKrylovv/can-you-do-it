@@ -119,8 +119,8 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
         animate={{ opacity: 1, y: 0 }}
         className="bg-card border border-border rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto"
       >
-        <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Check className="w-8 h-8 text-green-600" />
+        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <Check className="w-8 h-8 text-primary" />
         </div>
         <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
           Заявка отправлена!
@@ -160,7 +160,7 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
       <div className="bg-muted/50 p-4 md:p-6 border-b border-border">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Building2 className="w-5 h-5 text-green-600" />
+            <Building2 className="w-5 h-5 text-primary" />
             <span className="font-semibold text-foreground">Подбор дата-центра</span>
           </div>
           <button 
@@ -183,8 +183,8 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
                 <div 
                   className={cn(
                     "flex items-center gap-2 px-3 py-2 rounded-xl transition-all whitespace-nowrap",
-                    isActive && "bg-green-600 text-white",
-                    isCompleted && "bg-green-500/20 text-green-600",
+                    isActive && "bg-primary text-primary-foreground",
+                    isCompleted && "bg-primary/20 text-primary",
                     !isActive && !isCompleted && "bg-muted text-muted-foreground"
                   )}
                 >
@@ -198,7 +198,7 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
                 {index < steps.length - 1 && (
                   <div className={cn(
                     "w-6 h-0.5 mx-1",
-                    isCompleted ? "bg-green-500" : "bg-border"
+                    isCompleted ? "bg-primary" : "bg-border"
                   )} />
                 )}
               </div>
@@ -234,8 +234,8 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
                     className={cn(
                       "p-4 rounded-xl border-2 text-left transition-all",
                       formData.location === loc.id
-                        ? "border-green-600 bg-green-500/10"
-                        : "border-border hover:border-green-600/50"
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
                     )}
                   >
                     <div className="text-2xl mb-2">{loc.flag}</div>
@@ -277,8 +277,8 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
                         className={cn(
                           "p-3 rounded-xl border-2 text-left transition-all",
                           formData.rackSize === size.id
-                            ? "border-green-600 bg-green-500/10"
-                            : "border-border hover:border-green-600/50"
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:border-primary/50"
                         )}
                       >
                         <div className="font-medium text-foreground">{size.label}</div>
@@ -299,8 +299,8 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
                         className={cn(
                           "p-2 rounded-xl border-2 text-center text-sm transition-all",
                           formData.power === power.id
-                            ? "border-green-600 bg-green-500/10"
-                            : "border-border hover:border-green-600/50"
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:border-primary/50"
                         )}
                       >
                         {power.label}
@@ -335,8 +335,8 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
                     className={cn(
                       "flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all",
                       formData.services.includes(service.id)
-                        ? "border-green-600 bg-green-500/10"
-                        : "border-border hover:border-green-600/50"
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
                     )}
                   >
                     <Checkbox
@@ -449,7 +449,7 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
           <Button
             onClick={handleNext}
             disabled={!canProceed()}
-            className="rounded-xl bg-green-600 hover:bg-green-700"
+            className="rounded-xl"
           >
             Далее
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -458,7 +458,7 @@ const ColocationWizard = ({ isOpen, onClose }: ColocationWizardProps) => {
           <Button
             onClick={handleSubmit}
             disabled={!canProceed()}
-            className="rounded-xl bg-green-600 hover:bg-green-700"
+            className="rounded-xl"
           >
             Отправить заявку
             <Check className="w-4 h-4 ml-2" />
