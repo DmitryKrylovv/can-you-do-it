@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import ProviderPage from "./pages/ProviderPage";
 import VDSPage from "./pages/VDSPage";
 import ColocationPage from "./pages/ColocationPage";
+import ProvidersRatingPage from "./pages/ProvidersRatingPage";
 import ForProvidersPage from "./pages/ForProvidersPage";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/vds" element={<VDSPage />} />
           <Route path="/colocation" element={<ColocationPage />} />
+          <Route path="/providers" element={<ProvidersRatingPage />} />
           <Route path="/for-providers" element={<ForProvidersPage />} />
           <Route path="/provider/:providerId" element={<ProviderPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

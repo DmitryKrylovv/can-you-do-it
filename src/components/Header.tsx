@@ -75,9 +75,9 @@ const Header = () => {
 
               {/* Quick Links - Desktop */}
               <nav className="hidden lg:flex items-center gap-1">
-                <a href="#" className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap">
+                <Link to="/providers" className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap">
                   Рейтинг провайдеров
-                </a>
+                </Link>
                 <a href="#" className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-muted whitespace-nowrap">
                   Сравнить
                 </a>
@@ -201,9 +201,9 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
           <div className="text-xs font-medium text-muted-foreground px-3 py-2 uppercase tracking-wider">
             Навигация
           </div>
-          <a href="#" className="block px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors" onClick={onClose}>
+          <Link to="/providers" className="block px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors" onClick={onClose}>
             Рейтинг провайдеров
-          </a>
+          </Link>
           <a href="#" className="block px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors" onClick={onClose}>
             Сравнить тарифы
           </a>
