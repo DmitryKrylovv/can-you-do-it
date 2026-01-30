@@ -69,7 +69,7 @@ const Header = () => {
               {/* Search Button - Desktop */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden md:flex items-center gap-3 flex-1 max-w-md h-11 px-4 bg-muted rounded-xl text-sm text-muted-foreground hover:bg-muted/80 transition-colors"
+                className="hidden md:flex items-center gap-3 flex-1 max-w-md h-10 px-4 bg-muted rounded-xl text-sm text-muted-foreground hover:bg-muted/80 transition-colors"
               >
                 <Search className="w-4 h-4" />
                 <span>Поиск провайдеров...</span>

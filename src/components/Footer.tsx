@@ -1,3 +1,5 @@
+import ploozaLogo from '@/assets/plooza-logo.svg';
+
 const Footer = () => {
   const links = {
     'Услуги': [
@@ -29,17 +31,14 @@ const Footer = () => {
 
   return (
     <footer className="bg-foreground text-background py-10 sm:py-12 md:py-16">
-      <div className="container px-3 sm:px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-8 sm:mb-12">
+      <div className="container px-4 sm:px-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Logo & description */}
-          <div className="col-span-2 sm:col-span-2 md:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-3 sm:mb-4">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-base sm:text-lg">P</span>
-              </div>
-              <span className="text-lg sm:text-xl font-bold">Plooza</span>
+          <div className="col-span-2 md:col-span-1 mb-2 sm:mb-0">
+            <a href="/" className="inline-block mb-3 sm:mb-4">
+              <img src={ploozaLogo} alt="Plooza" className="h-6 sm:h-7 brightness-0 invert" />
             </a>
-            <p className="text-background/70 text-xs sm:text-sm">
+            <p className="text-background/70 text-xs sm:text-sm leading-relaxed">
               Независимый маркетплейс хостинг-провайдеров России и СНГ
             </p>
           </div>
