@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import Header from '@/components/Header';
+import BlogHeader from '@/components/blog/BlogHeader';
 import Footer from '@/components/Footer';
 import BlogSidebar from '@/components/blog/BlogSidebar';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import BlogCategories from '@/components/blog/BlogCategories';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { PenLine } from 'lucide-react';
 
 export interface BlogPost {
   id: string;
@@ -118,22 +117,18 @@ const BlogPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <BlogHeader />
       
-      <main className="pt-24 pb-16">
+      <main className="pt-16 pb-16">
         {/* Categories Bar */}
-        <div className="border-b border-border bg-card/50 sticky top-[72px] z-30 backdrop-blur-sm">
+        <div className="border-b border-border bg-card/50 sticky top-16 z-30 backdrop-blur-sm">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between py-3">
+            <div className="py-3">
               <BlogCategories 
                 categories={categories}
                 activeCategory={activeCategory}
                 onCategoryChange={setActiveCategory}
               />
-              <Button className="hidden md:flex gap-2">
-                <PenLine className="w-4 h-4" />
-                Написать статью
-              </Button>
             </div>
           </div>
         </div>
