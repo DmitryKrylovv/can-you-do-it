@@ -3,157 +3,118 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { 
   Star, Check, Server, Cpu, HardDrive, Gauge, Globe, 
-  Zap, Shield, Clock, Award, ChevronDown, ChevronRight,
-  TrendingUp, Users, Headphones, ArrowRight
+  Zap, Shield, Clock, ChevronDown, ArrowRight, Layers,
+  CreditCard, Settings, BarChart3, RefreshCw, Headphones,
+  Filter, SortAsc
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 interface Tariff {
+  id: string;
+  provider: string;
+  providerLogo?: string;
   name: string;
-  cpu: string;
-  ram: string;
-  storage: string;
-  bandwidth: string;
+  cpu: number;
+  ram: number;
+  storage: number;
+  storageType: 'SSD' | 'NVMe';
+  bandwidth: number;
+  location: string;
   price: number;
   oldPrice?: number;
   popular?: boolean;
-}
-
-interface Provider {
-  id: string;
-  name: string;
-  rating: number;
-  reviewCount: number;
-  description: string;
-  locations: string[];
   features: string[];
-  tariffs: Tariff[];
-  highlight?: string;
 }
 
-const providers: Provider[] = [
-  {
-    id: 'timeweb',
-    name: 'Timeweb Cloud',
-    rating: 4.8,
-    reviewCount: 1245,
-    description: 'Надежный облачный хостинг с отличной поддержкой и современной инфраструктурой',
-    locations: ['Москва', 'Санкт-Петербург', 'Амстердам'],
-    features: ['SSD NVMe', 'Бесплатный SSL', 'DDoS защита', 'Бэкапы'],
-    highlight: 'Лучшая поддержка',
-    tariffs: [
-      { name: 'Start', cpu: '1 vCPU', ram: '1 ГБ', storage: '20 ГБ NVMe', bandwidth: '100 Мбит/с', price: 199 },
-      { name: 'Basic', cpu: '2 vCPU', ram: '2 ГБ', storage: '40 ГБ NVMe', bandwidth: '200 Мбит/с', price: 399, popular: true },
-      { name: 'Standard', cpu: '2 vCPU', ram: '4 ГБ', storage: '60 ГБ NVMe', bandwidth: '300 Мбит/с', price: 699 },
-      { name: 'Advanced', cpu: '4 vCPU', ram: '8 ГБ', storage: '100 ГБ NVMe', bandwidth: '500 Мбит/с', price: 1299 },
-    ],
-  },
-  {
-    id: 'selectel',
-    name: 'Selectel',
-    rating: 4.7,
-    reviewCount: 892,
-    description: 'Крупнейший независимый провайдер IT-инфраструктуры в России',
-    locations: ['Москва', 'Санкт-Петербург'],
-    features: ['Enterprise SSD', 'API управление', 'Kubernetes', '24/7 поддержка'],
-    highlight: 'Enterprise решения',
-    tariffs: [
-      { name: 'Lite', cpu: '1 vCPU', ram: '1 ГБ', storage: '10 ГБ SSD', bandwidth: '100 Мбит/с', price: 249 },
-      { name: 'Base', cpu: '2 vCPU', ram: '2 ГБ', storage: '30 ГБ SSD', bandwidth: '200 Мбит/с', price: 499 },
-      { name: 'Pro', cpu: '4 vCPU', ram: '4 ГБ', storage: '50 ГБ SSD', bandwidth: '500 Мбит/с', price: 899, popular: true },
-      { name: 'Enterprise', cpu: '8 vCPU', ram: '16 ГБ', storage: '200 ГБ SSD', bandwidth: '1 Гбит/с', price: 2499 },
-    ],
-  },
-  {
-    id: 'ruvds',
-    name: 'RUVDS',
-    rating: 4.6,
-    reviewCount: 756,
-    description: 'Виртуальные серверы с мгновенным развертыванием и гибкой конфигурацией',
-    locations: ['Москва', 'Казань', 'Новосибирск', 'Лондон'],
-    features: ['Почасовая оплата', 'Снапшоты', 'IPv6', 'Windows/Linux'],
-    tariffs: [
-      { name: 'Micro', cpu: '1 vCPU', ram: '512 МБ', storage: '10 ГБ SSD', bandwidth: '100 Мбит/с', price: 149, oldPrice: 199 },
-      { name: 'Small', cpu: '1 vCPU', ram: '1 ГБ', storage: '20 ГБ SSD', bandwidth: '200 Мбит/с', price: 299 },
-      { name: 'Medium', cpu: '2 vCPU', ram: '2 ГБ', storage: '40 ГБ SSD', bandwidth: '300 Мбит/с', price: 549, popular: true },
-      { name: 'Large', cpu: '4 vCPU', ram: '8 ГБ', storage: '80 ГБ SSD', bandwidth: '500 Мбит/с', price: 1099 },
-    ],
-  },
-  {
-    id: 'vdsina',
-    name: 'VDSina',
-    rating: 4.5,
-    reviewCount: 534,
-    description: 'Быстрые VDS серверы на NVMe дисках с защитой от DDoS атак',
-    locations: ['Москва', 'Амстердам', 'Франкфурт'],
-    features: ['NVMe диски', 'DDoS защита', 'Бесплатный перенос', 'ISPmanager'],
-    tariffs: [
-      { name: 'VDS-1', cpu: '1 vCPU', ram: '1 ГБ', storage: '25 ГБ NVMe', bandwidth: '100 Мбит/с', price: 179 },
-      { name: 'VDS-2', cpu: '2 vCPU', ram: '2 ГБ', storage: '50 ГБ NVMe', bandwidth: '200 Мбит/с', price: 349, popular: true },
-      { name: 'VDS-4', cpu: '4 vCPU', ram: '4 ГБ', storage: '80 ГБ NVMe', bandwidth: '500 Мбит/с', price: 649 },
-      { name: 'VDS-8', cpu: '8 vCPU', ram: '8 ГБ', storage: '160 ГБ NVMe', bandwidth: '1 Гбит/с', price: 1199 },
-    ],
-  },
-  {
-    id: 'beget',
-    name: 'Beget',
-    rating: 4.9,
-    reviewCount: 2156,
-    description: 'Один из лучших хостингов России с превосходной технической поддержкой',
-    locations: ['Санкт-Петербург'],
-    features: ['Бесплатный домен', 'Автобэкапы', 'SSL сертификаты', 'Тех. поддержка 24/7'],
-    highlight: 'Выбор редакции',
-    tariffs: [
-      { name: 'Старт', cpu: '1 vCPU', ram: '1 ГБ', storage: '15 ГБ SSD', bandwidth: '100 Мбит/с', price: 199 },
-      { name: 'Базовый', cpu: '2 vCPU', ram: '2 ГБ', storage: '30 ГБ SSD', bandwidth: '200 Мбит/с', price: 399, popular: true },
-      { name: 'Стандарт', cpu: '3 vCPU', ram: '4 ГБ', storage: '60 ГБ SSD', bandwidth: '300 Мбит/с', price: 699 },
-      { name: 'Бизнес', cpu: '4 vCPU', ram: '8 ГБ', storage: '120 ГБ SSD', bandwidth: '500 Мбит/с', price: 1299 },
-    ],
-  },
+const allTariffs: Tariff[] = [
+  // Timeweb
+  { id: 'tw-1', provider: 'Timeweb', name: 'Start', cpu: 1, ram: 1, storage: 20, storageType: 'NVMe', bandwidth: 100, location: 'Москва', price: 199, features: ['DDoS защита', 'Бэкапы'] },
+  { id: 'tw-2', provider: 'Timeweb', name: 'Basic', cpu: 2, ram: 2, storage: 40, storageType: 'NVMe', bandwidth: 200, location: 'Москва', price: 399, popular: true, features: ['DDoS защита', 'Бэкапы', 'SSL'] },
+  { id: 'tw-3', provider: 'Timeweb', name: 'Standard', cpu: 2, ram: 4, storage: 60, storageType: 'NVMe', bandwidth: 300, location: 'СПб', price: 699, features: ['DDoS защита', 'Бэкапы', 'SSL'] },
+  { id: 'tw-4', provider: 'Timeweb', name: 'Advanced', cpu: 4, ram: 8, storage: 100, storageType: 'NVMe', bandwidth: 500, location: 'Амстердам', price: 1299, features: ['DDoS защита', 'Бэкапы', 'SSL', 'Приоритетная поддержка'] },
+  // Selectel
+  { id: 'sel-1', provider: 'Selectel', name: 'Lite', cpu: 1, ram: 1, storage: 10, storageType: 'SSD', bandwidth: 100, location: 'Москва', price: 249, features: ['API', 'Мониторинг'] },
+  { id: 'sel-2', provider: 'Selectel', name: 'Base', cpu: 2, ram: 2, storage: 30, storageType: 'SSD', bandwidth: 200, location: 'Москва', price: 499, features: ['API', 'Мониторинг', 'Снапшоты'] },
+  { id: 'sel-3', provider: 'Selectel', name: 'Pro', cpu: 4, ram: 4, storage: 50, storageType: 'SSD', bandwidth: 500, location: 'СПб', price: 899, popular: true, features: ['API', 'Мониторинг', 'Снапшоты', 'Kubernetes'] },
+  { id: 'sel-4', provider: 'Selectel', name: 'Enterprise', cpu: 8, ram: 16, storage: 200, storageType: 'SSD', bandwidth: 1000, location: 'Москва', price: 2499, features: ['API', 'Мониторинг', 'Снапшоты', 'Kubernetes', 'SLA 99.95%'] },
+  // RUVDS
+  { id: 'ru-1', provider: 'RUVDS', name: 'Micro', cpu: 1, ram: 0.5, storage: 10, storageType: 'SSD', bandwidth: 100, location: 'Москва', price: 149, oldPrice: 199, features: ['IPv6', 'Windows'] },
+  { id: 'ru-2', provider: 'RUVDS', name: 'Small', cpu: 1, ram: 1, storage: 20, storageType: 'SSD', bandwidth: 200, location: 'Казань', price: 299, features: ['IPv6', 'Windows', 'Снапшоты'] },
+  { id: 'ru-3', provider: 'RUVDS', name: 'Medium', cpu: 2, ram: 2, storage: 40, storageType: 'SSD', bandwidth: 300, location: 'Лондон', price: 549, popular: true, features: ['IPv6', 'Windows', 'Снапшоты'] },
+  { id: 'ru-4', provider: 'RUVDS', name: 'Large', cpu: 4, ram: 8, storage: 80, storageType: 'SSD', bandwidth: 500, location: 'Новосибирск', price: 1099, features: ['IPv6', 'Windows', 'Снапшоты', 'Почасовая оплата'] },
+  // VDSina
+  { id: 'vds-1', provider: 'VDSina', name: 'VDS-1', cpu: 1, ram: 1, storage: 25, storageType: 'NVMe', bandwidth: 100, location: 'Москва', price: 179, features: ['DDoS защита', 'ISPmanager'] },
+  { id: 'vds-2', provider: 'VDSina', name: 'VDS-2', cpu: 2, ram: 2, storage: 50, storageType: 'NVMe', bandwidth: 200, location: 'Амстердам', price: 349, popular: true, features: ['DDoS защита', 'ISPmanager'] },
+  { id: 'vds-3', provider: 'VDSina', name: 'VDS-4', cpu: 4, ram: 4, storage: 80, storageType: 'NVMe', bandwidth: 500, location: 'Франкфурт', price: 649, features: ['DDoS защита', 'ISPmanager', 'Бесплатный перенос'] },
+  // Beget
+  { id: 'bg-1', provider: 'Beget', name: 'Старт', cpu: 1, ram: 1, storage: 15, storageType: 'SSD', bandwidth: 100, location: 'СПб', price: 199, features: ['Домен в подарок', 'SSL'] },
+  { id: 'bg-2', provider: 'Beget', name: 'Базовый', cpu: 2, ram: 2, storage: 30, storageType: 'SSD', bandwidth: 200, location: 'СПб', price: 399, popular: true, features: ['Домен в подарок', 'SSL', 'Автобэкапы'] },
+  { id: 'bg-3', provider: 'Beget', name: 'Стандарт', cpu: 3, ram: 4, storage: 60, storageType: 'SSD', bandwidth: 300, location: 'СПб', price: 699, features: ['Домен в подарок', 'SSL', 'Автобэкапы'] },
 ];
 
-const quickFilters = [
-  { label: 'Все', value: 'all' },
-  { label: 'До 300₽', value: 'cheap' },
-  { label: 'NVMe диски', value: 'nvme' },
-  { label: '4+ ГБ RAM', value: 'highram' },
-  { label: 'Москва', value: 'moscow' },
-];
+const providers = ['Все', 'Timeweb', 'Selectel', 'RUVDS', 'VDSina', 'Beget'];
+const locations = ['Все', 'Москва', 'СПб', 'Амстердам', 'Франкфурт', 'Лондон', 'Казань'];
+const ramOptions = ['Любой', '1 ГБ', '2 ГБ', '4+ ГБ', '8+ ГБ'];
 
-const stats = [
-  { icon: Server, value: '15+', label: 'Провайдеров' },
-  { icon: Users, value: '50K+', label: 'Пользователей' },
-  { icon: Star, value: '4.7', label: 'Средний рейтинг' },
-  { icon: TrendingUp, value: '99.9%', label: 'Uptime' },
-];
-
-const faqs = [
+const features = [
   {
-    question: 'Что такое VDS/VPS сервер?',
-    answer: 'VDS (Virtual Dedicated Server) или VPS (Virtual Private Server) — это виртуальный выделенный сервер, который работает на физическом сервере, но имеет выделенные ресурсы (CPU, RAM, диск). Это золотая середина между обычным хостингом и выделенным сервером.',
+    icon: Layers,
+    title: 'Один кабинет',
+    description: 'Управляйте серверами от разных провайдеров в едином интерфейсе',
   },
   {
-    question: 'Какой VDS выбрать для начала?',
-    answer: 'Для небольших проектов и сайтов достаточно VDS с 1-2 vCPU, 1-2 ГБ RAM и 20-40 ГБ SSD. Для более требовательных приложений выбирайте конфигурации с 4+ vCPU и 4+ ГБ RAM.',
+    icon: CreditCard,
+    title: 'Единый счёт',
+    description: 'Оплачивайте все серверы одним платежом, без множества счетов',
   },
   {
-    question: 'Чем отличается SSD от NVMe?',
-    answer: 'NVMe — это более современный и быстрый тип SSD накопителей. Скорость чтения/записи NVMe в 3-5 раз выше обычных SSD, что критично для баз данных и высоконагруженных приложений.',
+    icon: BarChart3,
+    title: 'Общая аналитика',
+    description: 'Мониторинг и статистика всех серверов на одном дашборде',
   },
   {
-    question: 'Можно ли перенести сайт с другого хостинга?',
-    answer: 'Да, большинство провайдеров предлагают бесплатный перенос сайтов. Обычно это занимает от нескольких часов до 1-2 дней в зависимости от объема данных.',
+    icon: RefreshCw,
+    title: 'Легкая миграция',
+    description: 'Переносите проекты между провайдерами в пару кликов',
+  },
+  {
+    icon: Settings,
+    title: 'Унифицированный API',
+    description: 'Один API для управления серверами любого провайдера',
+  },
+  {
+    icon: Headphones,
+    title: 'Единая поддержка',
+    description: 'Решаем все вопросы — не нужно писать каждому провайдеру',
   },
 ];
 
 const VDSPage = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const [expandedProvider, setExpandedProvider] = useState<string | null>(providers[0].id);
+  const [selectedProvider, setSelectedProvider] = useState('Все');
+  const [selectedLocation, setSelectedLocation] = useState('Все');
+  const [selectedRam, setSelectedRam] = useState('Любой');
+  const [sortBy, setSortBy] = useState<'price' | 'ram' | 'storage'>('price');
+  const [showFilters, setShowFilters] = useState(false);
 
-  const topProvider = providers.find(p => p.id === 'beget')!;
+  const filteredTariffs = allTariffs
+    .filter(t => selectedProvider === 'Все' || t.provider === selectedProvider)
+    .filter(t => selectedLocation === 'Все' || t.location === selectedLocation)
+    .filter(t => {
+      if (selectedRam === 'Любой') return true;
+      if (selectedRam === '1 ГБ') return t.ram === 1;
+      if (selectedRam === '2 ГБ') return t.ram === 2;
+      if (selectedRam === '4+ ГБ') return t.ram >= 4;
+      if (selectedRam === '8+ ГБ') return t.ram >= 8;
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'price') return a.price - b.price;
+      if (sortBy === 'ram') return b.ram - a.ram;
+      if (sortBy === 'storage') return b.storage - a.storage;
+      return 0;
+    });
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -161,352 +122,55 @@ const VDSPage = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-10 md:py-16 lg:py-20 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10" />
-          <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <section className="relative py-12 md:py-20 lg:py-28 overflow-hidden">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-muted/80 via-muted/30 to-background" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
           
           <div className="container relative">
-            <div className="max-w-3xl mx-auto text-center">
-              <Badge variant="secondary" className="mb-4 md:mb-6">
-                <Zap className="w-3 h-3 mr-1" />
-                Обновлено сегодня
+            <div className="max-w-4xl mx-auto text-center">
+              <Badge className="mb-6 text-sm px-4 py-1.5" variant="secondary">
+                <Zap className="w-3.5 h-3.5 mr-1.5" />
+                Новый способ работы с VDS
               </Badge>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 md:mb-6">
-                Лучшие VDS/VPS серверы
-                <span className="text-primary"> 2024</span>
+              
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+                Все провайдеры.
+                <br />
+                <span className="text-primary">Один кабинет.</span>
               </h1>
-              <p className="text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8">
-                Сравните {providers.length} проверенных провайдеров. 
-                Найдите идеальный сервер за 2 минуты.
+              
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Покупайте VDS у лучших провайдеров России и управляйте всеми серверами 
+                в едином личном кабинете Plooza
               </p>
               
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-2xl mx-auto">
-                {stats.map((stat, index) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div key={index} className="text-center">
-                      <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 text-primary mb-2">
-                        <Icon className="w-5 h-5 md:w-6 md:h-6" />
-                      </div>
-                      <div className="text-xl md:text-2xl font-bold text-foreground">{stat.value}</div>
-                      <div className="text-xs md:text-sm text-muted-foreground">{stat.label}</div>
-                    </div>
-                  );
-                })}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button size="lg" className="w-full sm:w-auto text-base px-8">
+                  Выбрать сервер
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+                <Button size="lg" variant="outline" className="w-full sm:w-auto text-base px-8">
+                  Как это работает?
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Quick Filters */}
-        <section className="py-4 md:py-6 border-y border-border bg-muted/30 sticky top-[105px] z-30">
+        {/* Features Grid */}
+        <section className="py-12 md:py-16 border-y border-border bg-card">
           <div className="container">
-            <div className="flex items-center gap-2 md:gap-3 overflow-x-auto pb-1 scrollbar-hide">
-              {quickFilters.map((filter) => (
-                <button
-                  key={filter.value}
-                  onClick={() => setActiveFilter(filter.value)}
-                  className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all",
-                    activeFilter === filter.value
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-background border border-border text-foreground hover:border-primary/50"
-                  )}
-                >
-                  {filter.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Top Pick - Featured Provider */}
-        <section className="py-8 md:py-12">
-          <div className="container">
-            <div className="flex items-center gap-2 mb-4 md:mb-6">
-              <Award className="w-5 h-5 text-yellow-500" />
-              <h2 className="text-lg md:text-xl font-semibold text-foreground">Выбор редакции</h2>
-            </div>
-            
-            <div className="relative bg-gradient-to-br from-primary/5 via-card to-primary/10 border-2 border-primary/20 rounded-2xl md:rounded-3xl p-5 md:p-8 overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 md:w-48 md:h-48 bg-primary/10 rounded-full blur-3xl" />
-              
-              <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-10">
-                {/* Provider Info */}
-                <div className="flex-1">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-14 h-14 md:w-16 md:h-16 bg-background rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
-                      <Server className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="text-xl md:text-2xl font-bold text-foreground">{topProvider.name}</h3>
-                        <Badge className="bg-yellow-500/10 text-yellow-600 border-yellow-500/20">
-                          <Star className="w-3 h-3 mr-1 fill-current" />
-                          {topProvider.rating}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {topProvider.reviewCount} отзывов
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <p className="text-muted-foreground mb-4 md:mb-6">
-                    {topProvider.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
-                    {topProvider.features.map((feature) => (
-                      <span key={feature} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-background/80 rounded-full text-xs md:text-sm font-medium">
-                        <Check className="w-3 h-3 text-primary" />
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {topProvider.locations.map((location) => (
-                      <Badge key={location} variant="outline" className="text-xs">
-                        <Globe className="w-3 h-3 mr-1" />
-                        {location}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Best Tariff */}
-                <div className="lg:w-72 bg-background rounded-xl md:rounded-2xl p-5 md:p-6 border border-border shadow-lg">
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Лучший тариф</div>
-                  <div className="text-lg font-semibold text-foreground mb-4">
-                    {topProvider.tariffs.find(t => t.popular)?.name || topProvider.tariffs[1].name}
-                  </div>
-                  
-                  <div className="space-y-2 text-sm mb-5">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Cpu className="w-4 h-4 text-primary" />
-                      <span>{topProvider.tariffs[1].cpu}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Gauge className="w-4 h-4 text-primary" />
-                      <span>{topProvider.tariffs[1].ram} RAM</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <HardDrive className="w-4 h-4 text-primary" />
-                      <span>{topProvider.tariffs[1].storage}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-baseline gap-1 mb-4">
-                    <span className="text-3xl font-bold text-foreground">{topProvider.tariffs[1].price}₽</span>
-                    <span className="text-sm text-muted-foreground">/мес</span>
-                  </div>
-                  
-                  <Button className="w-full" size="lg">
-                    Перейти к провайдеру
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* All Providers - Accordion Style */}
-        <section className="py-8 md:py-12 bg-muted/30">
-          <div className="container">
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6 md:mb-8">
-              Все провайдеры
-            </h2>
-            
-            <div className="space-y-4">
-              {providers.map((provider, index) => (
-                <div
-                  key={provider.id}
-                  className={cn(
-                    "bg-card border rounded-xl md:rounded-2xl overflow-hidden transition-all",
-                    expandedProvider === provider.id ? "border-primary/50 shadow-lg" : "border-border"
-                  )}
-                >
-                  {/* Provider Header - Clickable */}
-                  <button
-                    onClick={() => setExpandedProvider(expandedProvider === provider.id ? null : provider.id)}
-                    className="w-full p-4 md:p-6 flex items-center gap-4 text-left hover:bg-muted/30 transition-colors"
-                  >
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-muted text-sm font-bold text-muted-foreground">
-                      {index + 1}
-                    </div>
-                    
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-muted rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Server className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="font-semibold text-foreground">{provider.name}</h3>
-                        {provider.highlight && (
-                          <Badge variant="secondary" className="text-[10px] md:text-xs">
-                            {provider.highlight}
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-3 mt-0.5">
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-                          <span className="text-sm font-medium">{provider.rating}</span>
-                        </div>
-                        <span className="text-xs text-muted-foreground hidden sm:inline">
-                          {provider.reviewCount} отзывов
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="hidden md:flex items-center gap-6">
-                      <div className="text-right">
-                        <div className="text-xs text-muted-foreground">от</div>
-                        <div className="font-semibold text-foreground">{Math.min(...provider.tariffs.map(t => t.price))}₽/мес</div>
-                      </div>
-                    </div>
-                    
-                    <ChevronDown className={cn(
-                      "w-5 h-5 text-muted-foreground transition-transform",
-                      expandedProvider === provider.id && "rotate-180"
-                    )} />
-                  </button>
-                  
-                  {/* Expanded Content */}
-                  {expandedProvider === provider.id && (
-                    <div className="border-t border-border">
-                      <div className="p-4 md:p-6 bg-muted/20">
-                        <p className="text-sm text-muted-foreground mb-4">
-                          {provider.description}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {provider.features.map((feature) => (
-                            <span key={feature} className="inline-flex items-center gap-1 px-2 py-1 bg-background rounded-md text-xs">
-                              <Check className="w-3 h-3 text-primary" />
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
-                        
-                        <div className="flex flex-wrap gap-2">
-                          {provider.locations.map((location) => (
-                            <Badge key={location} variant="outline" className="text-xs">
-                              <Globe className="w-3 h-3 mr-1" />
-                              {location}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      {/* Tariffs Grid */}
-                      <div className="p-4 md:p-6">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-                          {provider.tariffs.map((tariff) => (
-                            <div
-                              key={tariff.name}
-                              className={cn(
-                                "relative p-4 rounded-xl border transition-all hover:shadow-md",
-                                tariff.popular
-                                  ? "border-primary bg-primary/5"
-                                  : "border-border bg-background hover:border-primary/30"
-                              )}
-                            >
-                              {tariff.popular && (
-                                <Badge className="absolute -top-2 right-3 text-[10px]">
-                                  Популярный
-                                </Badge>
-                              )}
-                              
-                              <h4 className="font-semibold text-foreground mb-3">
-                                {tariff.name}
-                              </h4>
-                              
-                              <div className="space-y-1.5 text-sm mb-4">
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Cpu className="w-3.5 h-3.5 text-primary/70" />
-                                  <span>{tariff.cpu}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Gauge className="w-3.5 h-3.5 text-primary/70" />
-                                  <span>{tariff.ram} RAM</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <HardDrive className="w-3.5 h-3.5 text-primary/70" />
-                                  <span>{tariff.storage}</span>
-                                </div>
-                              </div>
-                              
-                              <div className="mb-3">
-                                <div className="flex items-baseline gap-1">
-                                  <span className="text-xl font-bold text-foreground">
-                                    {tariff.price}₽
-                                  </span>
-                                  <span className="text-xs text-muted-foreground">/мес</span>
-                                </div>
-                                {tariff.oldPrice && (
-                                  <span className="text-xs text-muted-foreground line-through">
-                                    {tariff.oldPrice}₽
-                                  </span>
-                                )}
-                              </div>
-                              
-                              <Button 
-                                className="w-full" 
-                                variant={tariff.popular ? 'default' : 'outline'}
-                                size="sm"
-                              >
-                                Заказать
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits */}
-        <section className="py-10 md:py-16">
-          <div className="container">
-            <h2 className="text-xl md:text-2xl font-bold text-foreground text-center mb-8 md:mb-12">
-              Почему выбирают нас
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              {[
-                {
-                  icon: Shield,
-                  title: 'Проверенные провайдеры',
-                  description: 'Мы тестируем каждого провайдера лично и публикуем только честные обзоры',
-                },
-                {
-                  icon: Clock,
-                  title: 'Актуальные цены',
-                  description: 'Цены обновляются ежедневно. Вы всегда видите реальную стоимость тарифов',
-                },
-                {
-                  icon: Headphones,
-                  title: 'Помощь в выборе',
-                  description: 'Не можете определиться? Наши эксперты помогут подобрать оптимальный вариант',
-                },
-              ].map((benefit, index) => {
-                const Icon = benefit.icon;
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
                 return (
                   <div key={index} className="text-center">
-                    <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-primary/10 text-primary mb-4">
-                      <Icon className="w-7 h-7 md:w-8 md:h-8" />
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 text-primary mb-3">
+                      <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{benefit.title}</h3>
-                    <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                    <h3 className="font-semibold text-foreground text-sm mb-1">{feature.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed hidden md:block">{feature.description}</p>
                   </div>
                 );
               })}
@@ -514,61 +178,296 @@ const VDSPage = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-10 md:py-16 bg-muted/30">
+        {/* Tariffs Section */}
+        <section className="py-10 md:py-16">
           <div className="container">
-            <h2 className="text-xl md:text-2xl font-bold text-foreground text-center mb-8 md:mb-12">
-              Часто задаваемые вопросы
-            </h2>
-            
-            <div className="max-w-3xl mx-auto space-y-3">
-              {faqs.map((faq, index) => (
-                <div 
-                  key={index} 
-                  className="bg-card border border-border rounded-xl overflow-hidden"
+            {/* Section Header */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  Выберите тариф
+                </h2>
+                <p className="text-muted-foreground">
+                  {filteredTariffs.length} тарифов от {providers.length - 1} провайдеров
+                </p>
+              </div>
+              
+              {/* Mobile Filter Toggle */}
+              <Button 
+                variant="outline" 
+                className="md:hidden"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <Filter className="w-4 h-4 mr-2" />
+                Фильтры
+                {(selectedProvider !== 'Все' || selectedLocation !== 'Все' || selectedRam !== 'Любой') && (
+                  <Badge className="ml-2 h-5 w-5 p-0 justify-center">
+                    {[selectedProvider !== 'Все', selectedLocation !== 'Все', selectedRam !== 'Любой'].filter(Boolean).length}
+                  </Badge>
+                )}
+              </Button>
+            </div>
+
+            {/* Filters */}
+            <div className={cn(
+              "bg-muted/50 rounded-2xl p-4 md:p-6 mb-8 space-y-4 md:space-y-0 md:flex md:items-center md:gap-6",
+              !showFilters && "hidden md:flex"
+            )}>
+              {/* Provider Filter */}
+              <div className="flex-1">
+                <label className="text-xs font-medium text-muted-foreground mb-2 block">Провайдер</label>
+                <div className="flex flex-wrap gap-2">
+                  {providers.map((provider) => (
+                    <button
+                      key={provider}
+                      onClick={() => setSelectedProvider(provider)}
+                      className={cn(
+                        "px-3 py-1.5 rounded-lg text-sm font-medium transition-all",
+                        selectedProvider === provider
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-background border border-border text-foreground hover:border-primary/50"
+                      )}
+                    >
+                      {provider}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Location Filter */}
+              <div className="md:w-48">
+                <label className="text-xs font-medium text-muted-foreground mb-2 block">Локация</label>
+                <select
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                  className="w-full h-10 px-3 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                 >
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full p-4 md:p-5 flex items-center justify-between gap-4 text-left hover:bg-muted/30 transition-colors"
-                  >
-                    <span className="font-medium text-foreground">{faq.question}</span>
-                    <ChevronRight className={cn(
-                      "w-5 h-5 text-muted-foreground transition-transform flex-shrink-0",
-                      expandedFaq === index && "rotate-90"
-                    )} />
-                  </button>
-                  {expandedFaq === index && (
-                    <div className="px-4 md:px-5 pb-4 md:pb-5">
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
+                  {locations.map((loc) => (
+                    <option key={loc} value={loc}>{loc}</option>
+                  ))}
+                </select>
+              </div>
+              
+              {/* RAM Filter */}
+              <div className="md:w-36">
+                <label className="text-xs font-medium text-muted-foreground mb-2 block">RAM</label>
+                <select
+                  value={selectedRam}
+                  onChange={(e) => setSelectedRam(e.target.value)}
+                  className="w-full h-10 px-3 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                >
+                  {ramOptions.map((ram) => (
+                    <option key={ram} value={ram}>{ram}</option>
+                  ))}
+                </select>
+              </div>
+              
+              {/* Sort */}
+              <div className="md:w-44">
+                <label className="text-xs font-medium text-muted-foreground mb-2 block">Сортировка</label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'price' | 'ram' | 'storage')}
+                  className="w-full h-10 px-3 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                >
+                  <option value="price">По цене</option>
+                  <option value="ram">По RAM</option>
+                  <option value="storage">По диску</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Tariffs Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+              {filteredTariffs.map((tariff) => (
+                <div
+                  key={tariff.id}
+                  className={cn(
+                    "group relative bg-card rounded-2xl border p-5 transition-all hover:shadow-lg hover:-translate-y-1",
+                    tariff.popular 
+                      ? "border-primary/50 shadow-md" 
+                      : "border-border hover:border-primary/30"
                   )}
+                >
+                  {tariff.popular && (
+                    <Badge className="absolute -top-2.5 left-4 text-[10px]">
+                      Популярный
+                    </Badge>
+                  )}
+                  
+                  {/* Provider Badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <Badge variant="secondary" className="text-xs font-medium">
+                      {tariff.provider}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Globe className="w-3 h-3" />
+                      {tariff.location}
+                    </span>
+                  </div>
+                  
+                  {/* Tariff Name */}
+                  <h3 className="text-lg font-semibold text-foreground mb-4">
+                    {tariff.name}
+                  </h3>
+                  
+                  {/* Specs */}
+                  <div className="space-y-2.5 mb-5">
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Cpu className="w-4 h-4 text-primary/70" />
+                        CPU
+                      </span>
+                      <span className="text-sm font-medium text-foreground">{tariff.cpu} vCPU</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Gauge className="w-4 h-4 text-primary/70" />
+                        RAM
+                      </span>
+                      <span className="text-sm font-medium text-foreground">{tariff.ram} ГБ</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <HardDrive className="w-4 h-4 text-primary/70" />
+                        Диск
+                      </span>
+                      <span className="text-sm font-medium text-foreground">
+                        {tariff.storage} ГБ {tariff.storageType}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Features */}
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {tariff.features.slice(0, 2).map((feature) => (
+                      <span key={feature} className="text-[10px] px-2 py-0.5 bg-muted rounded-full text-muted-foreground">
+                        {feature}
+                      </span>
+                    ))}
+                    {tariff.features.length > 2 && (
+                      <span className="text-[10px] px-2 py-0.5 bg-muted rounded-full text-muted-foreground">
+                        +{tariff.features.length - 2}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* Price */}
+                  <div className="flex items-end justify-between mb-4">
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-foreground">{tariff.price}₽</span>
+                        <span className="text-sm text-muted-foreground">/мес</span>
+                      </div>
+                      {tariff.oldPrice && (
+                        <span className="text-sm text-muted-foreground line-through">{tariff.oldPrice}₽</span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <Button className="w-full" variant={tariff.popular ? 'default' : 'outline'}>
+                    Заказать
+                  </Button>
                 </div>
               ))}
+            </div>
+            
+            {filteredTariffs.length === 0 && (
+              <div className="text-center py-16">
+                <Server className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                <p className="text-muted-foreground">Нет тарифов по выбранным фильтрам</p>
+                <Button variant="link" onClick={() => {
+                  setSelectedProvider('Все');
+                  setSelectedLocation('Все');
+                  setSelectedRam('Любой');
+                }}>
+                  Сбросить фильтры
+                </Button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="py-12 md:py-20 bg-muted/30">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                Как это работает
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Три простых шага от выбора до полного контроля над серверами
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                {
+                  step: '01',
+                  title: 'Выберите тариф',
+                  description: 'Сравните цены и характеристики серверов от разных провайдеров в одном месте',
+                  icon: Server,
+                },
+                {
+                  step: '02',
+                  title: 'Оплатите через Plooza',
+                  description: 'Единый платёж через нашу платформу. Никаких отдельных счетов от провайдеров',
+                  icon: CreditCard,
+                },
+                {
+                  step: '03',
+                  title: 'Управляйте в кабинете',
+                  description: 'Все серверы, метрики и настройки — в одном интерфейсе Plooza',
+                  icon: Settings,
+                },
+              ].map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <div key={index} className="relative">
+                    <div className="bg-card border border-border rounded-2xl p-6 md:p-8 text-center h-full">
+                      <div className="text-5xl md:text-6xl font-bold text-primary/10 mb-4">{item.step}</div>
+                      <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary mb-4">
+                        <Icon className="w-7 h-7" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                    </div>
+                    
+                    {index < 2 && (
+                      <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                        <ArrowRight className="w-8 h-8 text-muted-foreground/30" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* CTA */}
         <section className="py-12 md:py-20">
           <div className="container">
-            <div className="relative bg-gradient-to-br from-primary to-primary/80 rounded-2xl md:rounded-3xl p-8 md:p-12 text-center overflow-hidden">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
+            <div className="relative bg-gradient-to-br from-primary via-primary to-primary/80 rounded-3xl p-8 md:p-12 lg:p-16 overflow-hidden">
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-10 left-10 w-32 h-32 border border-primary-foreground rounded-full" />
+                <div className="absolute bottom-10 right-10 w-48 h-48 border border-primary-foreground rounded-full" />
+                <div className="absolute top-1/2 left-1/2 w-64 h-64 border border-primary-foreground rounded-full -translate-x-1/2 -translate-y-1/2" />
+              </div>
               
-              <div className="relative">
+              <div className="relative max-w-3xl mx-auto text-center">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-                  Нужна помощь с выбором?
+                  Готовы упростить управление серверами?
                 </h2>
-                <p className="text-primary-foreground/80 mb-6 md:mb-8 max-w-xl mx-auto">
-                  Оставьте заявку, и наш эксперт поможет подобрать оптимальный VDS под ваши задачи
+                <p className="text-primary-foreground/80 mb-8 text-lg">
+                  Присоединяйтесь к тысячам пользователей, которые уже оценили удобство единого кабинета
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-                    Получить консультацию
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <Button size="lg" variant="secondary" className="w-full sm:w-auto text-base px-8">
+                    Создать аккаунт бесплатно
                   </Button>
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                    Сравнить тарифы
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto text-base px-8 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                    Связаться с нами
                   </Button>
                 </div>
               </div>
