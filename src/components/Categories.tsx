@@ -79,7 +79,7 @@ const Categories = () => {
   return (
     <section className="py-6 sm:py-8 md:py-10">
       <div className="container px-3 sm:px-4">
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4 md:gap-6">
           {categories.map((category) => {
             const Icon = category.icon;
             return (

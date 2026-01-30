@@ -68,13 +68,13 @@ const Comparison = () => {
           </p>
         </div>
 
-        {/* Mobile: Horizontal scroll */}
-        <div className="overflow-x-auto -mx-3 sm:-mx-4 px-3 sm:px-4 pb-4 scrollbar-hide">
-          <div className="flex gap-4 sm:grid sm:grid-cols-3 max-w-5xl mx-auto min-w-max sm:min-w-0">
+        {/* Cards */}
+        <div className="overflow-x-auto -mx-3 sm:-mx-4 px-3 sm:px-4 pb-4 md:overflow-visible md:mx-0 md:px-0 scrollbar-hide">
+          <div className="flex gap-4 md:grid md:grid-cols-3 max-w-5xl mx-auto min-w-max md:min-w-0">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl border w-72 sm:w-auto flex-shrink-0 ${
+                className={`relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border w-72 md:w-auto flex-shrink-0 ${
                   plan.isPopular
                     ? 'border-primary bg-primary/5 ring-2 ring-primary'
                     : 'border-border bg-card'
