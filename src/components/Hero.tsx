@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Server, Shield, Zap, Percent, Gift } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Server, Shield, Zap, Percent, Gift, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 
@@ -41,6 +41,12 @@ const Hero = () => {
       title: 'Бонус к тарифу',
       description: 'дополнительный месяц бесплатно',
       badge: 'Бонус +1 мес',
+    },
+    {
+      icon: Star,
+      title: 'Топ провайдеры',
+      description: 'только проверенные компании',
+      badge: 'Рейтинг 4.8+',
     },
   ];
 
@@ -143,7 +149,7 @@ const Hero = () => {
               return (
                 <div
                   key={index}
-                  className="flex-1 bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 relative overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-md transition-all min-h-[140px] sm:min-h-[182px]"
+                  className="flex-1 bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 relative overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-md transition-all min-h-[110px] sm:min-h-[120px]"
                 >
                   <div className="relative z-10">
                     <h3 className="text-sm sm:text-base font-semibold text-foreground mb-0.5">
