@@ -143,27 +143,30 @@ const Hero = () => {
           </div>
 
           {/* Side Promo Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 lg:grid-cols-1 gap-2 sm:gap-3">
             {promoCards.map((card, index) => {
               const Icon = card.icon;
               return (
                 <div
                   key={index}
-                  className="flex-1 bg-card rounded-xl sm:rounded-2xl border border-border p-4 sm:p-5 relative overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-md transition-all min-h-[110px] sm:min-h-[120px]"
+                  className="flex-1 bg-card rounded-xl sm:rounded-2xl border border-border p-3 sm:p-5 relative overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-md transition-all"
                 >
                   <div className="relative z-10">
-                    <h3 className="text-sm sm:text-base font-semibold text-foreground mb-0.5">
+                    <div className="w-8 h-8 sm:hidden bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg flex items-center justify-center mb-2">
+                      <Icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <h3 className="text-xs sm:text-base font-semibold text-foreground mb-0.5 leading-tight">
                       {card.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
+                    <p className="text-[10px] sm:text-sm text-muted-foreground mb-1.5 sm:mb-3 leading-tight hidden sm:block">
                       {card.description}
                     </p>
-                    <span className="inline-block px-2 sm:px-3 py-1 bg-muted text-foreground text-xs font-medium rounded-md">
+                    <span className="inline-block px-1.5 sm:px-3 py-0.5 sm:py-1 bg-muted text-foreground text-[9px] sm:text-xs font-medium rounded-md">
                       {card.badge}
                     </span>
                   </div>
-                  {/* Decorative icon */}
-                  <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  {/* Decorative icon - hidden on mobile */}
+                  <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl items-center justify-center group-hover:scale-110 transition-transform hidden sm:flex">
                     <Icon className="w-6 sm:w-8 h-6 sm:h-8 text-primary" />
                   </div>
                 </div>

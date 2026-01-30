@@ -86,27 +86,27 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
   return (
     <div className="fixed inset-0 z-50" onClick={() => onOpenChange(false)}>
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40 animate-in fade-in-0 duration-150" />
+      <div className="absolute inset-0 bg-black/40 animate-in fade-in-0 duration-150 hidden sm:block" />
 
-      {/* Search Dropdown - появляется под хедером */}
-      <div className="absolute left-0 right-0 top-[105px] px-4 animate-in fade-in-0 slide-in-from-top-2 duration-200">
-        <div className="container max-w-3xl mx-auto">
-          <div className="bg-card border border-border rounded-2xl shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+      {/* Search Dropdown */}
+      <div className="absolute inset-0 sm:inset-auto sm:left-0 sm:right-0 sm:top-[105px] sm:px-4 animate-in fade-in-0 slide-in-from-top-2 duration-200">
+        <div className="h-full sm:h-auto sm:container sm:max-w-3xl sm:mx-auto">
+          <div className="h-full sm:h-auto bg-card sm:border sm:border-border sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
             {/* Search Input */}
-            <div className="p-4 bg-muted/30">
+            <div className="p-3 sm:p-4 bg-muted/30 border-b sm:border-b-0 border-border">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
+                <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Поиск провайдеров, услуг, тарифов..."
+                  placeholder="Поиск провайдеров..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-14 pl-12 pr-12 bg-background border border-border rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  className="w-full h-12 sm:h-14 pl-11 sm:pl-12 pr-11 sm:pr-12 bg-background border border-border rounded-xl text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
                 />
                 <button 
                   onClick={() => onOpenChange(false)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 hover:bg-muted rounded-lg transition-colors"
+                  className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-2 hover:bg-muted rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5 text-muted-foreground" />
                 </button>
@@ -114,11 +114,11 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
             </div>
 
             {/* Filters */}
-            <div className="p-5 space-y-5 max-h-[50vh] overflow-y-auto">
+            <div className="flex-1 p-4 sm:p-5 space-y-4 sm:space-y-5 overflow-y-auto">
               {/* Service Types */}
               <div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3">
-                  <SlidersHorizontal className="w-4 h-4 text-primary" />
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3">
+                  <SlidersHorizontal className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                   Тип услуги
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -129,13 +129,13 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
                         key={type.id}
                         onClick={() => toggleType(type.id)}
                         className={cn(
-                          "flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border",
+                          "flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all border",
                           selectedTypes.includes(type.id)
                             ? "bg-primary text-primary-foreground border-primary"
                             : "bg-background border-border text-foreground hover:border-primary/50 hover:bg-primary/5"
                         )}
                       >
-                        <Icon className="w-4 h-4" />
+                        <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         {type.label}
                       </button>
                     );
@@ -145,8 +145,8 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
 
               {/* Locations */}
               <div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3">
-                  <MapPin className="w-4 h-4 text-primary" />
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3">
+                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                   Расположение серверов
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -154,8 +154,8 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
                     <button
                       key={location.id}
                       onClick={() => toggleLocation(location.id)}
-                      className={cn(
-                        "px-4 py-2.5 rounded-xl text-sm font-medium transition-all border",
+                        className={cn(
+                          "px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all border",
                         selectedLocations.includes(location.id)
                           ? "bg-primary text-primary-foreground border-primary"
                           : "bg-background border-border text-foreground hover:border-primary/50 hover:bg-primary/5"
@@ -169,8 +169,8 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
 
               {/* Rating */}
               <div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3">
-                  <Star className="w-4 h-4 text-primary" />
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3">
+                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                   Минимальный рейтинг
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -179,7 +179,7 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
                       key={rating}
                       onClick={() => setMinRating(minRating === rating ? null : rating)}
                       className={cn(
-                        "flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border",
+                        "flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all border",
                         minRating === rating
                           ? "bg-primary text-primary-foreground border-primary"
                           : "bg-background border-border text-foreground hover:border-primary/50 hover:bg-primary/5"
@@ -194,48 +194,49 @@ const SearchFilter = ({ isOpen, onOpenChange }: SearchFilterProps) => {
 
               {/* Price Range */}
               <div>
-                <div className="flex items-center justify-between text-sm font-semibold text-foreground mb-3">
+                <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3">
                   <span>Цена в месяц</span>
                   <span className="text-muted-foreground font-normal">
                     {priceRange[0]}₽ — {priceRange[1]}₽
                   </span>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-2 sm:gap-3">
                   <input
                     type="number"
                     placeholder="От"
                     value={priceRange[0]}
                     onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                    className="flex-1 h-11 px-4 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                    className="flex-1 h-10 sm:h-11 px-3 sm:px-4 bg-background border border-border rounded-lg sm:rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   />
                   <input
                     type="number"
                     placeholder="До"
                     value={priceRange[1]}
                     onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                    className="flex-1 h-11 px-4 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                    className="flex-1 h-10 sm:h-11 px-3 sm:px-4 bg-background border border-border rounded-lg sm:rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   />
                 </div>
               </div>
             </div>
 
             {/* Actions */}
-            <div className="p-4 border-t border-border bg-muted/30 flex items-center justify-between gap-3">
+            <div className="p-3 sm:p-4 border-t border-border bg-muted/30 flex items-center justify-between gap-3 mt-auto">
               <button
                 onClick={clearFilters}
                 className={cn(
-                  "text-sm text-muted-foreground hover:text-foreground transition-colors",
+                  "text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors",
                   !hasFilters && "opacity-50 pointer-events-none"
                 )}
               >
-                Сбросить фильтры
+                Сбросить
               </button>
               <Button 
-                className="px-6 rounded-xl"
+                className="px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm"
                 onClick={() => onOpenChange(false)}
               >
-                <Search className="w-4 h-4 mr-2" />
-                Найти провайдеров
+                <Search className="w-4 h-4 mr-1.5 sm:mr-2" />
+                <span className="hidden sm:inline">Найти провайдеров</span>
+                <span className="sm:hidden">Найти</span>
               </Button>
             </div>
           </div>
