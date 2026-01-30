@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Star, Shield, Clock, Users, ExternalLink, ChevronRight, ThumbsUp, ThumbsDown, MessageSquare, Check, X, Globe, Server, Zap, HeadphonesIcon, Award, ShoppingCart } from 'lucide-react';
+import { Star, Shield, Clock, Users, ExternalLink, ChevronRight, ThumbsUp, ThumbsDown, MessageSquare, Check, X, Globe, Server, Zap, HeadphonesIcon, Award, ShoppingCart, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
@@ -382,6 +382,58 @@ const ProviderPage = () => {
                     <Button className="w-full bg-primary hover:bg-primary/90">
                       Написать отзыв
                     </Button>
+                  </div>
+
+                  {/* AI Summary */}
+                  <div className="bg-gradient-to-br from-primary/5 via-blue-50/50 to-purple-50/30 dark:from-primary/10 dark:via-blue-900/20 dark:to-purple-900/10 rounded-2xl p-5 border border-primary/20 mt-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-primary to-purple-500 rounded-lg flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground text-sm">AI-суммаризатор</h3>
+                        <span className="text-xs text-muted-foreground">на основе {providerData.reviewsCount} отзывов</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-3 text-sm">
+                      <div className="flex items-start gap-2">
+                        <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="w-3 h-3 text-green-600" />
+                        </div>
+                        <p className="text-muted-foreground">
+                          <span className="font-medium text-foreground">Стабильная работа:</span> Пользователи отмечают высокий uptime и быструю загрузку сайтов
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-start gap-2">
+                        <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="w-3 h-3 text-green-600" />
+                        </div>
+                        <p className="text-muted-foreground">
+                          <span className="font-medium text-foreground">Быстрая поддержка:</span> Среднее время ответа 15 минут, компетентные специалисты
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-start gap-2">
+                        <div className="w-5 h-5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <span className="text-yellow-600 text-xs">!</span>
+                        </div>
+                        <p className="text-muted-foreground">
+                          <span className="font-medium text-foreground">Нюанс:</span> Некоторые клиенты отмечают задержки в ответах в выходные дни
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-primary/10">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>Проанализировано AI</span>
+                        <span className="flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-primary" />
+                          Powered by Plooza AI
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
