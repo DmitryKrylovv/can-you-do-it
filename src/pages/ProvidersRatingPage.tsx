@@ -384,16 +384,14 @@ const ProvidersRatingPage = () => {
         {/* Table */}
         <section className="container py-6 md:py-8">
           <div className="bg-card border border-border rounded-2xl overflow-hidden">
-            {/* Table Header */}
-            <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-muted/50 border-b border-border text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              <div className="col-span-1">#</div>
-              <div className="col-span-3">Провайдер</div>
-              <div className="col-span-2">Рейтинг</div>
-              <div className="col-span-1">Uptime</div>
-              <div className="col-span-1">Поддержка</div>
-              <div className="col-span-1">Цены</div>
-              <div className="col-span-2">Особенности</div>
-              <div className="col-span-1"></div>
+            {/* Table Header - Desktop */}
+            <div className="hidden lg:grid grid-cols-[60px_1fr_140px_100px_100px_140px] gap-3 px-6 py-4 bg-muted/50 border-b border-border text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <div>#</div>
+              <div>Провайдер</div>
+              <div>Рейтинг</div>
+              <div>Uptime</div>
+              <div className="text-center">Поддержка</div>
+              <div className="text-right">Действия</div>
             </div>
 
             {/* Table Body */}
@@ -402,133 +400,168 @@ const ProvidersRatingPage = () => {
                 <div
                   key={provider.id}
                   className={cn(
-                    "grid grid-cols-1 md:grid-cols-12 gap-4 px-4 md:px-6 py-4 md:py-5 hover:bg-muted/30 transition-colors",
-                    provider.badge && "bg-primary/5"
+                    "group hover:bg-muted/30 transition-colors",
+                    provider.badge && "bg-primary/[0.03]"
                   )}
                 >
-                  {/* Rank */}
-                  <div className="hidden md:flex col-span-1 items-center">
-                    <div className={cn(
-                      "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm",
-                      index === 0 && "bg-amber-500 text-white",
-                      index === 1 && "bg-slate-400 text-white",
-                      index === 2 && "bg-amber-700 text-white",
-                      index > 2 && "bg-muted text-muted-foreground"
-                    )}>
-                      {index + 1}
+                  {/* Desktop Row */}
+                  <div className="hidden lg:grid grid-cols-[60px_1fr_140px_100px_100px_140px] gap-3 px-6 py-4 items-center">
+                    {/* Rank */}
+                    <div>
+                      <div className={cn(
+                        "w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm",
+                        index === 0 && "bg-amber-500 text-white",
+                        index === 1 && "bg-slate-400 text-white",
+                        index === 2 && "bg-amber-700 text-white",
+                        index > 2 && "bg-muted text-muted-foreground"
+                      )}>
+                        {index + 1}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Provider Info */}
-                  <div className="col-span-1 md:col-span-3 flex items-center gap-3">
-                    <div className="md:hidden w-6 h-6 rounded-md bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
-                      {index + 1}
-                    </div>
-                    <div className={cn(
-                      "w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white shrink-0",
-                      index === 0 ? "bg-primary" : "bg-slate-600"
-                    )}>
-                      {provider.logo}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-foreground">{provider.name}</span>
-                        {provider.trend === 'up' && (
-                          <ChevronUp className="w-4 h-4 text-emerald-500" />
-                        )}
-                        {provider.trend === 'down' && (
-                          <ChevronDown className="w-4 h-4 text-red-500" />
+                    {/* Provider Info */}
+                    <div className="flex items-center gap-4 min-w-0">
+                      <div className={cn(
+                        "w-11 h-11 rounded-xl flex items-center justify-center font-bold text-white shrink-0 text-sm",
+                        index === 0 ? "bg-primary" : "bg-slate-600"
+                      )}>
+                        {provider.logo}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-foreground">{provider.name}</span>
+                          {provider.trend === 'up' && (
+                            <ChevronUp className="w-4 h-4 text-emerald-500 shrink-0" />
+                          )}
+                          {provider.trend === 'down' && (
+                            <ChevronDown className="w-4 h-4 text-red-500 shrink-0" />
+                          )}
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-0.5">
+                          {provider.category}
+                        </div>
+                        {provider.badge && (
+                          <Badge className="mt-1.5 bg-primary/10 text-primary text-[10px] font-medium border-0">
+                            {provider.badge}
+                          </Badge>
                         )}
                       </div>
-                      <div className="text-xs text-muted-foreground truncate">
-                        {provider.category}
-                      </div>
-                      {provider.badge && (
-                        <Badge className="mt-1 bg-primary/10 text-primary text-[10px] font-medium">
-                          {provider.badge}
-                        </Badge>
-                      )}
                     </div>
-                  </div>
 
-                  {/* Rating */}
-                  <div className="col-span-1 md:col-span-2 flex items-center gap-2">
-                    <div className="flex items-center gap-1">
-                      <Star className={cn("w-5 h-5 fill-current", getRatingColor(provider.rating))} />
-                      <span className={cn("text-lg font-bold", getRatingColor(provider.rating))}>
-                        {provider.rating}
+                    {/* Rating */}
+                    <div className="flex items-center gap-2">
+                      <Star className={cn("w-5 h-5 fill-current shrink-0", getRatingColor(provider.rating))} />
+                      <div>
+                        <span className={cn("text-lg font-bold", getRatingColor(provider.rating))}>
+                          {provider.rating}
+                        </span>
+                        <span className="text-xs text-muted-foreground ml-1">
+                          ({provider.reviewsCount.toLocaleString()})
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Uptime */}
+                    <div>
+                      <span className={cn(
+                        "text-sm font-medium",
+                        provider.uptime >= 99.95 ? "text-emerald-600" : "text-muted-foreground"
+                      )}>
+                        {provider.uptime}%
                       </span>
                     </div>
-                    <span className="text-xs text-muted-foreground">
-                      ({provider.reviewsCount.toLocaleString()})
-                    </span>
-                  </div>
 
-                  {/* Uptime */}
-                  <div className="hidden md:flex col-span-1 items-center">
-                    <span className={cn(
-                      "text-sm font-medium",
-                      provider.uptime >= 99.95 ? "text-emerald-600" : "text-muted-foreground"
-                    )}>
-                      {provider.uptime}%
-                    </span>
-                  </div>
-
-                  {/* Support */}
-                  <div className="hidden md:flex col-span-1 items-center">
-                    <div className="flex items-center gap-1">
-                      <div className="w-8 h-2 bg-muted rounded-full overflow-hidden">
+                    {/* Support */}
+                    <div className="flex items-center justify-center gap-1.5">
+                      <div className="w-12 h-2 bg-muted rounded-full overflow-hidden">
                         <div 
                           className="h-full bg-primary rounded-full" 
                           style={{ width: `${(provider.support / 5) * 100}%` }}
                         />
                       </div>
-                      <span className="text-xs text-muted-foreground">{provider.support}</span>
+                      <span className="text-xs text-muted-foreground w-6">{provider.support}</span>
+                    </div>
+
+                    {/* Action */}
+                    <div className="flex items-center justify-end">
+                      <Link to={`/provider/${provider.id}`}>
+                        <Button size="sm" variant="outline" className="rounded-lg text-xs">
+                          Подробнее
+                          <ExternalLink className="w-3 h-3 ml-1.5" />
+                        </Button>
+                      </Link>
                     </div>
                   </div>
 
-                  {/* Price */}
-                  <div className="hidden md:flex col-span-1 items-center">
-                    <div className="flex items-center gap-1">
-                      <div className="w-8 h-2 bg-muted rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-emerald-500 rounded-full" 
-                          style={{ width: `${(provider.price / 5) * 100}%` }}
-                        />
+                  {/* Mobile/Tablet Row */}
+                  <div className="lg:hidden px-4 py-4">
+                    <div className="flex items-start gap-3">
+                      {/* Rank */}
+                      <div className={cn(
+                        "w-7 h-7 rounded-md flex items-center justify-center font-bold text-xs shrink-0",
+                        index === 0 && "bg-amber-500 text-white",
+                        index === 1 && "bg-slate-400 text-white",
+                        index === 2 && "bg-amber-700 text-white",
+                        index > 2 && "bg-muted text-muted-foreground"
+                      )}>
+                        {index + 1}
                       </div>
-                      <span className="text-xs text-muted-foreground">{provider.price}</span>
+
+                      {/* Logo */}
+                      <div className={cn(
+                        "w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white shrink-0 text-xs",
+                        index === 0 ? "bg-primary" : "bg-slate-600"
+                      )}>
+                        {provider.logo}
+                      </div>
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className="font-semibold text-foreground truncate">{provider.name}</span>
+                            {provider.trend === 'up' && (
+                              <ChevronUp className="w-4 h-4 text-emerald-500 shrink-0" />
+                            )}
+                            {provider.trend === 'down' && (
+                              <ChevronDown className="w-4 h-4 text-red-500 shrink-0" />
+                            )}
+                          </div>
+                          <div className="flex items-center gap-1 shrink-0">
+                            <Star className={cn("w-4 h-4 fill-current", getRatingColor(provider.rating))} />
+                            <span className={cn("font-bold", getRatingColor(provider.rating))}>
+                              {provider.rating}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="text-xs text-muted-foreground mt-1">
+                          {provider.category}
+                        </div>
+
+                        {provider.badge && (
+                          <Badge className="mt-2 bg-primary/10 text-primary text-[10px] font-medium border-0">
+                            {provider.badge}
+                          </Badge>
+                        )}
+
+                        <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+                          <span className={provider.uptime >= 99.95 ? "text-emerald-600 font-medium" : ""}>
+                            Uptime: {provider.uptime}%
+                          </span>
+                          <span>С {provider.since} г.</span>
+                        </div>
+
+                        <div className="mt-3">
+                          <Link to={`/provider/${provider.id}`}>
+                            <Button size="sm" variant="outline" className="rounded-lg text-xs w-full">
+                              Подробнее
+                              <ExternalLink className="w-3 h-3 ml-1.5" />
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Features */}
-                  <div className="hidden md:flex col-span-2 items-center gap-1 flex-wrap">
-                    {provider.features.slice(0, 2).map(feature => (
-                      <Badge key={feature} variant="secondary" className="text-[10px] font-normal">
-                        {feature}
-                      </Badge>
-                    ))}
-                    {provider.features.length > 2 && (
-                      <Badge variant="outline" className="text-[10px]">
-                        +{provider.features.length - 2}
-                      </Badge>
-                    )}
-                  </div>
-
-                  {/* Action */}
-                  <div className="col-span-1 flex items-center justify-end">
-                    <Link to={`/provider/${provider.id}`}>
-                      <Button size="sm" variant="outline" className="rounded-lg text-xs">
-                        Подробнее
-                        <ExternalLink className="w-3 h-3 ml-1" />
-                      </Button>
-                    </Link>
-                  </div>
-
-                  {/* Mobile: Additional info */}
-                  <div className="md:hidden col-span-1 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                    <span>Uptime: {provider.uptime}%</span>
-                    <span>•</span>
-                    <span>С {provider.since} г.</span>
                   </div>
                 </div>
               ))}
