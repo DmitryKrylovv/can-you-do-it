@@ -139,7 +139,7 @@ const VDSPage = () => {
               </div>
               
               <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-                {providers.length} провайдеров.{' '}
+                Все провайдеры.{' '}
                 <span className="text-primary">Один кабинет.</span>
               </h1>
               
