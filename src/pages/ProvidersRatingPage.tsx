@@ -312,45 +312,6 @@ const ProvidersRatingPage = () => {
           </div>
         </section>
 
-        {/* Reviews Marquee */}
-        <section className="border-b border-border bg-muted/30 overflow-hidden">
-          <div className="py-4">
-            <div className="flex items-center gap-2 container mb-3">
-              <ThumbsUp className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-foreground">Последние отзывы</span>
-            </div>
-            
-            {/* Marquee */}
-            <div className="relative">
-              <div className="flex gap-4 animate-marquee">
-                {[...recentReviews, ...recentReviews].map((review, idx) => (
-                  <div
-                    key={`${review.id}-${idx}`}
-                    className="flex-shrink-0 w-[320px] bg-card border border-border rounded-xl p-4 hover:border-primary/30 transition-colors"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
-                          {review.author.split(' ').map(n => n[0]).join('')}
-                        </div>
-                        <div>
-                          <div className="text-sm font-medium text-foreground">{review.author}</div>
-                          <div className="text-xs text-muted-foreground">{review.provider}</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                        <span className="text-sm font-medium">{review.rating}</span>
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{review.text}</p>
-                    <div className="text-xs text-muted-foreground mt-2">{review.date}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Search & Filters */}
         <section className="border-b border-border">
@@ -574,6 +535,41 @@ const ProvidersRatingPage = () => {
                 <p className="text-sm">Попробуйте изменить фильтры</p>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Reviews Section */}
+        <section className="container py-8 md:py-12">
+          <div className="flex items-center gap-2 mb-6">
+            <ThumbsUp className="w-5 h-5 text-primary" />
+            <h2 className="text-xl font-semibold text-foreground">Последние отзывы</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {recentReviews.slice(0, 8).map((review) => (
+              <div
+                key={review.id}
+                className="bg-card border border-border rounded-xl p-4 hover:border-primary/30 hover:shadow-md transition-all"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
+                      {review.author.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-foreground">{review.author}</div>
+                      <div className="text-xs text-muted-foreground">{review.provider}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <span className="text-sm font-bold">{review.rating}</span>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground line-clamp-3">{review.text}</p>
+                <div className="text-xs text-muted-foreground mt-3">{review.date}</div>
+              </div>
+            ))}
           </div>
         </section>
       </main>
