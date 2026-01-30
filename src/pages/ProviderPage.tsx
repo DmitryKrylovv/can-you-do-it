@@ -162,10 +162,6 @@ const ProviderPage = () => {
                         Партнёр Plooza
                       </span>
                     )}
-                    <span className="hidden sm:inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-                      <Check className="w-3 h-3" />
-                      Проверен
-                    </span>
                   </div>
                   
                   <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-3">
