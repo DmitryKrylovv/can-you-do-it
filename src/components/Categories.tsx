@@ -72,7 +72,7 @@ const Categories = () => {
       gradient: 'from-sky-500 to-sky-600',
       iconBg: 'bg-sky-50',
       iconColor: 'text-sky-600',
-      href: '#',
+      href: '/cloud',
     },
     {
       icon: Cpu,
