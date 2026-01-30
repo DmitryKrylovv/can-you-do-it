@@ -7,7 +7,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Link } from 'react-router-dom';
-import ploozaLogo from '@/assets/plooza-logo.svg';
 import ProductsMenu from '@/components/header/ProductsMenu';
 import SearchFilter from '@/components/header/SearchFilter';
 
@@ -54,18 +53,17 @@ const Header = () => {
           <div className="container">
             <div className="flex items-center h-16 gap-4">
               {/* Logo */}
-              <Link to="/" className="flex-shrink-0">
-                <img 
-                  src={ploozaLogo} 
-                  alt="Plooza" 
-                  className="h-7 w-auto"
-                />
+              <Link to="/" className="flex-shrink-0 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-lg">P</span>
+                </div>
+                <span className="text-xl font-bold text-foreground">Plooza</span>
               </Link>
 
               {/* Products Menu Button - Desktop */}
               <div className="hidden md:block">
-                <ProductsMenu 
-                  isOpen={isProductsOpen} 
+                <ProductsMenu
+                  isOpen={isProductsOpen}
                   onOpenChange={setIsProductsOpen}
                 />
               </div>
@@ -105,13 +103,13 @@ const Header = () => {
 
               {/* Mobile Actions */}
               <div className="flex md:hidden items-center gap-2 ml-auto">
-                <button 
+                <button
                   onClick={() => setIsSearchOpen(true)}
                   className="p-2.5 hover:bg-muted rounded-lg transition-colors"
                 >
                   <Search className="w-5 h-5" />
                 </button>
-                
+
                 <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                   <SheetTrigger asChild>
                     <button className="p-2.5 hover:bg-muted rounded-lg transition-colors">
@@ -137,7 +135,7 @@ const Header = () => {
 // Mobile Menu Component
 const MobileMenu = ({ onClose }: { onClose: () => void }) => {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-  
+
   const mobileCategories = [
     {
       id: 'hosting',
@@ -169,8 +167,11 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="flex flex-col h-full">
       {/* Mobile Header */}
-      <div className="p-4 border-b border-border">
-        <img src={ploozaLogo} alt="Plooza" className="h-6 w-auto" />
+      <div className="p-4 border-b border-border flex items-center gap-2">
+        <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+          <span className="text-primary-foreground font-bold">P</span>
+        </div>
+        <span className="text-lg font-bold text-foreground">Plooza</span>
       </div>
 
       {/* Mobile Navigation */}
