@@ -17,13 +17,13 @@ const ColocationPage = () => {
       
       <main className="flex-1">
         {/* Hero Section - Split Layout */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-green-500/5 via-background to-background">
+        <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-background">
           <div className="container py-10 md:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               
               {/* Left - Text */}
               <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 rounded-full text-sm text-green-600 font-medium mb-5">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm text-primary font-medium mb-5">
                   <Building2 className="w-4 h-4" />
                   Colocation
                 </div>
@@ -31,7 +31,7 @@ const ColocationPage = () => {
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
                   Найдите идеальный
                   <br />
-                  <span className="text-green-600">дата-центр</span>
+                  <span className="text-primary">дата-центр</span>
                 </h1>
                 
                 <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-md">
@@ -41,7 +41,7 @@ const ColocationPage = () => {
                 <div className="flex flex-wrap gap-3 mb-8">
                   <Button 
                     size="lg" 
-                    className="rounded-xl bg-green-600 hover:bg-green-700"
+                    className="rounded-xl"
                     onClick={() => setShowWizard(true)}
                   >
                     Подобрать ЦОД
@@ -55,15 +55,15 @@ const ColocationPage = () => {
                 {/* Trust indicators */}
                 <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1.5">
-                    <Check className="w-4 h-4 text-green-600" />
+                    <Check className="w-4 h-4 text-primary" />
                     Tier III/IV ЦОД
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-green-600" />
+                    <Clock className="w-4 h-4 text-primary" />
                     SLA 99.99%
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Shield className="w-4 h-4 text-green-600" />
+                    <Shield className="w-4 h-4 text-primary" />
                     24/7 охрана
                   </div>
                 </div>
@@ -85,16 +85,16 @@ const ColocationPage = () => {
                     </div>
                     <div className="w-px h-10 bg-border" />
                     <div>
-                      <div className="text-3xl font-bold text-green-600">от 3000₽</div>
+                      <div className="text-3xl font-bold text-primary">от 3000₽</div>
                       <div className="text-sm text-muted-foreground">за 1U/мес</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Feature Block 1 */}
-                <div className="bg-gradient-to-br from-green-500/10 to-green-500/5 border border-green-500/20 rounded-2xl p-4 hover:border-green-500/40 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center mb-3">
-                    <Server className="w-5 h-5 text-green-600" />
+                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-4 hover:border-primary/40 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center mb-3">
+                    <Server className="w-5 h-5 text-primary" />
                   </div>
                   <div className="font-semibold text-foreground text-sm">Любые стойки</div>
                   <div className="text-xs text-muted-foreground">От 1U до full-rack</div>
@@ -148,7 +148,7 @@ const ColocationPage = () => {
               </p>
               <Button 
                 size="lg" 
-                className="rounded-xl bg-green-600 hover:bg-green-700"
+                className="rounded-xl"
                 onClick={() => setShowWizard(true)}
               >
                 Начать подбор
